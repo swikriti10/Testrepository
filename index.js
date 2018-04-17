@@ -73,15 +73,8 @@ const app = new App({ request: req, response: res });
 
     }
 	
-	    if (speech == "actions_intent_OPTION") {
-        var param = app.getArgument('OPTION');
-	var input=app.getRawInput();
-    }
-    else {
-        var param = "hi";
-	  var input="bye";
-    }
-
+	   
+var input=app.getRawInput();
    var slack_message={
   
   expect_user_response: true,
@@ -89,7 +82,7 @@ const app = new App({ request: req, response: res });
   items: [
     {
       simpleResponse: {
-          textToSpeech:"This is the first simple response for a basic card"
+          textToSpeech:input
       }
     },
     {
