@@ -74,7 +74,7 @@ const app = new App({ request: req, response: res });
     }
 	
 	    if (speech == "actions_intent_OPTION") {
-        var param = assistant.getArgument('OPTION');
+        var param = app.getArgument('OPTION');
     }
     else {
         var param = "hi";
