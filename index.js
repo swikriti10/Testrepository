@@ -72,6 +72,13 @@ const app = new App({ request: req, response: res });
         obj.push(tmp);
 
     }
+	
+	    if (speech == "actions_intent_OPTION") {
+        var param = assistant.getArgument('OPTION');
+    }
+    else {
+        var param = "hi";
+    }
 
     var slack_message = {
 
