@@ -75,9 +75,11 @@ const app = new App({ request: req, response: res });
 	
 	    if (speech == "actions_intent_OPTION") {
         var param = app.getArgument('OPTION');
+	var input=app.getRawInput();
     }
     else {
         var param = "hi";
+	  var input="bye";
     }
 
     var slack_message = {
@@ -87,7 +89,7 @@ const app = new App({ request: req, response: res });
             items: [
                   {
                       simpleResponse: {
-                          textToSpeech: param
+                          textToSpeech: input
                       }
                   }
             ],
