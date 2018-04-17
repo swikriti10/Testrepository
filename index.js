@@ -73,55 +73,56 @@ const app = new App({ request: req, response: res });
 
     }
 	
-	   
-var input=app.getRawInput();
-   var slack_message={
-  
-  expect_user_response: true,
-  rich_response: {
-  items: [
-    {
-      simpleResponse: {
-          textToSpeech:input
-      }
-    },
-    {
-      basicCard: {
-        title:"Title: this is a title",
-        formattedText:"This is a basic card.  Text in a\n      basic card can include \"quotes\" and most other unicode characters\n      including emoji ??.  Basic cards also support some markdown\n      formatting like *emphasis* or _italics_, **strong** or __bold__,\n      and ***bold itallic*** or ___strong emphasis___ as well as other things\n      like line  \nbreaks",
-        subtitle:
-        "This is a subtitle",
-        image: {
-          url:"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png",
-          accessibilityText:"Image alternate text"
-        },
-        buttons: [
-          {
-            title:"This is a button",
-            openUrlAction:{
-              url:"https://assistant.google.com/"
-            }
-          }
-        ]
-      }
-    },
-    {
-      simpleResponse: {
-        textToSpeech:"This is the 2nd simple response ",
-        displayText:"This is the 2nd simple response"
-      }
+	    if (speech == "actions_intent_OPTION") {
+	        var param = app.getArgument('OPTION');
+	        var input = app.getRawInput();
     }
-  ],
-  suggestions:
-  [
-    {"title":"Basic Card"},
-    {"title":"List"},
-    {"title":"Carousel"},
-    {"title":"Suggestions"}
-  ]
-}
+    else {
+	        var param = "hi";
+	        var input = "bye";
+    }
+
+    var slack_message = {
+
+        expect_user_response: true,
+        rich_response: {
+            items: [
+                  {
+                      simpleResponse: {
+                          textToSpeech: param
+                      }
+                  }
+            ],
+            suggestions: [
+				{
+				    title: "List"
+				},
+				{
+				    title: "Carousel"
+				},
+				{
+				    title: "Suggestions"
+				}
+            ]
+
+
+        },
+
+        systemIntent: {
+            intent: "actions.intent.OPTION",
+            data: {
+                "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+                listSelect: {
+                    title: "List Title",
+                    items: obj
+                }
+            }
+        }
+
+
 
     };
+
 
     return res.json({
         speech: "",
