@@ -87,7 +87,7 @@ const app = new App({ request: req, response: res });
             items: [
                   {
                       simpleResponse: {
-                          textToSpeech: speech
+                          textToSpeech: param
                       }
                   }
             ],
