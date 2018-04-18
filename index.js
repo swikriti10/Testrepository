@@ -125,12 +125,12 @@ restService.post("/slack-test", function (req, res) {
 
 
  return res.json({
-        speech: "",
-        displayText: "",
+        fulfillmentText: "",
+        fulfillmentText: "",
 
         source: "webhook-echo-sample",
 
-        data: {
+        payload: {
             google: slack_message
         }
 
