@@ -34,7 +34,7 @@ restService.post("/slack-test", function (req, res) {
         ? req.body.result.action
         : "wrong";
 
-
+if(speech=="get_action"){
 
     var csrfToken;
     request({
@@ -121,7 +121,26 @@ restService.post("/slack-test", function (req, res) {
             //console.log(JSON.stringify(obj));
         }
     });
+}
+  
+  else{
+slack_message = {
 
+                expect_user_response: true,
+                rich_response: {
+                    items: [
+                          {
+                              simpleResponse: {
+                                  textToSpeech: speech
+                              }
+                          }
+                    ]
+                }
+  }
+  
+  
+  
+  
     return res.json({
                 speech: "",
                 displayText: "",
