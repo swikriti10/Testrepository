@@ -26,9 +26,7 @@ restService.use(bodyParser.json());
 
 
 restService.post("/slack-test", function (req, res) {
-    const app = new App({ request: req, response: res });
-
-    var actionName =
+	 var actionName =
       req.body.result &&
       req.body.result.action
         ? req.body.result.action
@@ -40,6 +38,9 @@ restService.post("/slack-test", function (req, res) {
       req.body.result.parameters.optionkey
         ? req.body.result.parameters.optionkey
         : "xx";
+    const app = new App({ request: req, response: res });
+
+   
 
 if(actionName=="get_action"||val=="start"||val=="Start"){
 
