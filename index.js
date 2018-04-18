@@ -114,7 +114,19 @@ restService.post("/slack-test", function (req, res) {
 
                     }
 
+  return res.json({
+        speech: "",
+        displayText: "",
 
+        source: "webhook-echo-sample",
+
+        data: {
+            google: slack_message
+        }
+
+
+
+    });
 
                 } else {
                     botResponse = "You do not seem to have any active Purchase Orders!";
@@ -138,7 +150,19 @@ restService.post("/slack-test", function (req, res) {
                     }
 
 
+  return res.json({
+        speech: "",
+        displayText: "",
 
+        source: "webhook-echo-sample",
+
+        data: {
+            google: slack_message
+        }
+
+
+
+    });
 
                 }
 
@@ -172,12 +196,8 @@ restService.post("/slack-test", function (req, res) {
 
 
         }
-
-    }
-   
-    
-
-    return res.json({
+      
+        return res.json({
         speech: "",
         displayText: "",
 
@@ -190,6 +210,12 @@ restService.post("/slack-test", function (req, res) {
 
 
     });
+
+    }
+   
+    
+
+  
 
 });
 
