@@ -67,7 +67,7 @@ restService.post("/slack-test", function (req, res) {
                     // botResponse += " ";
                     botResponse = {
                         
-                        'optionInfo': { 'key': c.d.results[i].ToNumerID },
+                        'optionInfo': { 'key': c.d.results[i].ToNum},
                         'title': c.d.results[i].ToNum
             
                     }
