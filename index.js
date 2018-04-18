@@ -41,7 +41,7 @@ restService.post("/slack-test", function (req, res) {
         ? req.body.result.parameters.optionkey
         : "xx";
 
-if(actionName=="get_action" ||val=="start"||val=="Start"){
+if(actionName=="get_action"){
 
     var csrfToken;
     request({
@@ -130,7 +130,7 @@ if(actionName=="get_action" ||val=="start"||val=="Start"){
     });
 }
   
-  else if (speech == "actions_intent_OPTION") {
+  else if (actionName == "actions_intent_OPTION") {
 	        var param = app.getArgument('OPTION');
 slack_message = {
 
