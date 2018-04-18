@@ -10,6 +10,8 @@ const restService = express();
 
 const App = require('actions-on-google').DialogflowApp;
 
+const dialogflow = require('dialogflow');
+
 
 //var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV";
 var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV/";
@@ -27,7 +29,8 @@ restService.use(bodyParser.json());
 
 
 restService.post("/slack-test", function (req, res) {
-    const app = new App({ request: req, response: res });
+ //   const app = new App({ request: req, response: res });
+	 const app = new dialogflow({ request: req, response: res });
 
     var speech =
       req.body.queryResult &&
