@@ -112,7 +112,7 @@ restService.post("/slack-test", function (req, res) {
 
 
 
-                    };
+                    }
 
 
 
@@ -135,7 +135,7 @@ restService.post("/slack-test", function (req, res) {
 
 
 
-                    };
+                    }
 
 
 
@@ -171,7 +171,7 @@ restService.post("/slack-test", function (req, res) {
 
 
 
-        };
+        }
 
     }
    
