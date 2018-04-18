@@ -118,12 +118,7 @@ restService.post("/slack-test", function (req, res) {
             };
 
            
-
-            //console.log(JSON.stringify(obj));
-        }
-    });
-
-    return res.json({
+ return res.json({
                 speech: "",
                 displayText: "",
 
@@ -136,6 +131,11 @@ restService.post("/slack-test", function (req, res) {
 
 
             });
+            //console.log(JSON.stringify(obj));
+        }
+    });
+
+   
 
 });
 
