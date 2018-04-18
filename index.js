@@ -29,8 +29,8 @@ restService.use(bodyParser.json());
 
 
 restService.post("/slack-test", function (req, res) {
- //   const app = new App({ request: req, response: res });
-	 const app = new dialogflow({ request: req, response: res });
+   const app = new App({ request: req, response: res });
+	// const app = new dialogflow({ request: req, response: res });
 
     var speech =
       req.body.queryResult &&
