@@ -9,7 +9,7 @@ var request = require('request');
 const restService = express();
 
 const App = require('actions-on-google').DialogflowApp;
-
+var slack_message;
 
 //var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV";
 var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV/";
@@ -76,7 +76,7 @@ restService.post("/slack-test", function (req, res) {
             } else {
                 botResponse = "You do not seem to have any active Purchase Orders!";
             }
-            var slack_message = {
+             slack_message = {
 
                 expect_user_response: true,
                 rich_response: {
@@ -118,7 +118,12 @@ restService.post("/slack-test", function (req, res) {
             };
 
            
- return res.json({
+
+            //console.log(JSON.stringify(obj));
+        }
+    });
+
+    return res.json({
                 speech: "",
                 displayText: "",
 
@@ -131,11 +136,6 @@ restService.post("/slack-test", function (req, res) {
 
 
             });
-            //console.log(JSON.stringify(obj));
-        }
-    });
-
-   
 
 });
 
