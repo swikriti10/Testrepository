@@ -28,13 +28,20 @@ restService.use(bodyParser.json());
 restService.post("/slack-test", function (req, res) {
     const app = new App({ request: req, response: res });
 
-    var speech =
+    var actionName =
       req.body.result &&
       req.body.result.action
         ? req.body.result.action
         : "wrong";
+	
+	var val =
+      req.body.result &&
+      req.body.result.parameters &&
+      req.body.result.parameters.optionkey
+        ? req.body.result.parameters.optionkey
+        : "xx";
 
-if(speech=="get_action"){
+if(actionName=="get_action" ||val=="start"||val=="Start"){
 
     var csrfToken;
     request({
