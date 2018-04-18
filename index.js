@@ -123,8 +123,26 @@ if(speech=="get_action"){
     });
 }
   
-  else{
+  else if (speech == "actions_intent_OPTION") {
+	        var param = app.getArgument('OPTION');
 slack_message = {
+
+                expect_user_response: true,
+                rich_response: {
+                    items: [
+                          {
+                              simpleResponse: {
+                                  textToSpeech: param
+                              }
+                          }
+                    ]
+                }
+        }
+  }
+  
+  else{
+    
+    slack_message = {
 
                 expect_user_response: true,
                 rich_response: {
@@ -138,8 +156,6 @@ slack_message = {
                 }
         }
   }
-  
-  
   
   
     return res.json({
