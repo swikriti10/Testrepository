@@ -1,24 +1,18 @@
-
 "use strict";
 
 const express = require("express");
 const bodyParser = require("body-parser");
-var http = require('http');
-var request = require('request');
 
 const restService = express();
 
 const App = require('actions-on-google').DialogflowApp;
 
-const dialogflow = require('dialogflow');
 
-
-//var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV";
-var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV/";
-
-var d = '1140';
-var i = 0;
 var obj = [];
+var myObj = [];
+var a;
+var i = 0;
+
 restService.use(
   bodyParser.urlencoded({
       extended: true
@@ -29,70 +23,73 @@ restService.use(bodyParser.json());
 
 
 restService.post("/slack-test", function (req, res) {
-   const app = new App({ request: req, response: res });
-	// const app = new dialogflow({ request: req, response: res });
+const app = new App({ request: req, response: res });
+
+    //const app = new App({req, res});
+
+    //const param = app.getContextArgument('actions_intent_option',
+    // 'OPTION').value;
 
     var speech =
-      req.body.queryResult &&
-      req.body.queryResult.action
-        ? req.body.queryResult.action
+      req.body.result &&
+      req.body.result.action
+        ? req.body.result.action
         : "wrong";
 
 
+    //var key=JSON.stringify(req.body);
 
-    var csrfToken;
-    request({
-        //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-        url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
-        headers: {
-            "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-            "Content-Type": "application/json",
-            "x-csrf-token": "Fetch"
-        }
+    var speech11 =
+      req.body.result &&
+      req.body.result.parameters &&
+      req.body.result.parameters.key
+        ? req.body.result.parameters.key
+        : "xx";
 
-    }, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            csrfToken = response.headers['x-csrf-token'];
-            // console.log(csrfToken);
-            // var gwResponse = body.asString();
-            // var JSONObj = JSON.parse(body);
-            var c = JSON.parse(body)
-            //var a = res.json(body);
-            var len = c.d.results.length;
-            //var a = JSON.stringify(a);
-
-            var botResponse;
-
-            if (c.d.results.length > 0) {
-                // botResponse = "Your latest Purchase orders are: ";
-
-                for (; i < c.d.results.length; i++) {
-                    // botResponse += " ";
-                    botResponse = {
-                        
-                        'optionInfo': { 'key': c.d.results[i].ToNum },
-                        'title': c.d.results[i].ToNum
-            
-                    }
-                    obj.push(botResponse);
-                }
-            } else {
-                botResponse = "You do not seem to have any active Purchase Orders!";
-            }
+    var myObj = [
+{
+    'CustomerID': "ALFKI",
+    'CompanyName': "Alfreds Futterkiste",
+    'ContactName': "Maria Anders"
 
 
-            //console.log(JSON.stringify(obj));
-        }
-    });
+},
+{
+    'CustomerID': "ANATR",
+    'CompanyName': "Ana Trujillo Emparedados y helados",
+    'ContactName': "Ana Trujillo"
+
+}];
+
+    for (; i < myObj.length; i++) {
+
+        var tmp = {
+            'optionInfo': { 'key': myObj[i].CustomerID },
+            'title': myObj[i].CompanyName,
+            'description': myObj[i].ContactName
+        };
+
+        obj.push(tmp);
+
+    }
+	
+	    if (speech == "actions_intent_OPTION") {
+	        var param = app.getArgument('OPTION');
+	        var input = app.getRawInput();
+    }
+    else {
+	        var param = "hi";
+	        var input = "bye";
+    }
 
     var slack_message = {
 
-        expect_User_Response: true,
-        rich_Response: {
+        expect_user_response: true,
+        rich_response: {
             items: [
                   {
                       simpleResponse: {
-                          textToSpeech: "You have below list of order"
+                          textToSpeech: param
                       }
                   }
             ],
@@ -127,8 +124,8 @@ restService.post("/slack-test", function (req, res) {
     };
 
 
- return res.json({
-       speech: "",
+    return res.json({
+        speech: "",
         displayText: "",
 
         source: "webhook-echo-sample",
@@ -143,10 +140,11 @@ restService.post("/slack-test", function (req, res) {
 
 
 
+
 });
+
 
 
 restService.listen(process.env.PORT || 8000, function () {
     console.log("Server up and listening");
 });
-
