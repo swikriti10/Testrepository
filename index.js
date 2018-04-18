@@ -41,7 +41,7 @@ restService.post("/slack-test", function (req, res) {
         ? req.body.result.parameters.optionkey
         : "xx";
 
-if(actionName=="get_action"){
+if(actionName=="get_action"||val=="start"||val=="Start"){
 
     var csrfToken;
     request({
