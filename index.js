@@ -1,4 +1,3 @@
-
 "use strict";
 
 const express = require("express");
@@ -28,181 +27,114 @@ restService.use(bodyParser.json());
 
 restService.post("/slack-test", function (req, res) {
     const app = new App({ request: req, response: res });
-    var csrfToken;
-    var actionName =
+
+    var speech =
       req.body.result &&
       req.body.result.action
         ? req.body.result.action
         : "wrong";
 
-    if (actionName == "get_action") {
 
-        request({
-            //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-            url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
-            headers: {
-                "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                "Content-Type": "application/json",
-                "x-csrf-token": "Fetch"
+
+    var csrfToken;
+    request({
+        //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
+        url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
+        headers: {
+            "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+            "Content-Type": "application/json",
+            "x-csrf-token": "Fetch"
+        }
+
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            csrfToken = response.headers['x-csrf-token'];
+            // console.log(csrfToken);
+            // var gwResponse = body.asString();
+            // var JSONObj = JSON.parse(body);
+            var c = JSON.parse(body)
+            //var a = res.json(body);
+            var len = c.d.results.length;
+            //var a = JSON.stringify(a);
+
+            var botResponse;
+
+            if (c.d.results.length > 0) {
+                // botResponse = "Your latest Purchase orders are: ";
+
+                for (; i < c.d.results.length; i++) {
+                    // botResponse += " ";
+                    botResponse = {
+                        
+                        'optionInfo': { 'key': c.d.results[i].ToNum},
+                        'title': c.d.results[i].ToNum
+            
+                    }
+                    obj.push(botResponse);
+                }
+            } else {
+                botResponse = "You do not seem to have any active Purchase Orders!";
             }
+             slack_message = {
 
-        }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                csrfToken = response.headers['x-csrf-token'];
-                // console.log(csrfToken);
-                // var gwResponse = body.asString();
-                // var JSONObj = JSON.parse(body);
-                var c = JSON.parse(body)
-                //var a = res.json(body);
-                var len = c.d.results.length;
-                //var a = JSON.stringify(a);
-
-                var botResponse;
-
-                if (c.d.results.length > 0) {
-                    // botResponse = "Your latest Purchase orders are: ";
-
-                    for (; i < c.d.results.length; i++) {
-                        // botResponse += " ";
-                        botResponse = {
-
-                            'optionInfo': { 'key': c.d.results[i].ToNumerID },
-                            'title': c.d.results[i].ToNum
-
-                        }
-                        obj.push(botResponse);
-                    }
-
-                    slack_message = {
-
-                        expect_user_response: true,
-                        rich_response: {
-                            items: [
-                                  {
-                                      simpleResponse: {
-                                          textToSpeech: "You have below list of order"
-                                      }
-                                  }
-                            ],
-                            suggestions: [
-                                {
-                                    title: "List"
-                                },
-                                {
-                                    title: "Carousel"
-                                },
-                                {
-                                    title: "Suggestions"
-                                }
-                            ]
-
-
+                expect_user_response: true,
+                rich_response: {
+                    items: [
+                          {
+                              simpleResponse: {
+                                  textToSpeech: speech
+                              }
+                          }
+                    ],
+                    suggestions: [
+                        {
+                            title: "List"
                         },
-
-                        systemIntent: {
-                            intent: "actions.intent.OPTION",
-                            data: {
-                                "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
-                                listSelect: {
-                                    title: "Select the order",
-                                    items: obj
-                                }
-                            }
+                        {
+                            title: "Carousel"
+                        },
+                        {
+                            title: "Suggestions"
                         }
+                    ]
 
 
+                },
 
-                    }
-
-  
-
-                } else {
-                    botResponse = "You do not seem to have any active Purchase Orders!";
-                    slack_message = {
-
-                        expect_user_response: true,
-                        rich_response: {
-                            items: [
-                                  {
-                                      simpleResponse: {
-                                          textToSpeech: botResponse
-                                      }
-                                  }
-                            ]
-
-
+                systemIntent: {
+                    intent: "actions.intent.OPTION",
+                    data: {
+                        "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+                        listSelect: {
+                            title: "Select the order",
+                            items: obj
                         }
-
-
-
                     }
-
-
-  
                 }
 
 
 
+            };
 
-                //console.log(JSON.stringify(obj));
-            }
-        });
-return res.json({
-        speech: "",
-        displayText: "",
+           
 
-        source: "webhook-echo-sample",
-
-        data: {
-            google: slack_message
+            //console.log(JSON.stringify(obj));
         }
-
-
-
-    });
-    }
-    else if (actionName == "actions_intent_OPTION") {
-
-        var param = app.getArgument('OPTION');
-
-        slack_message = {
-
-            expect_user_response: true,
-            rich_response: {
-                items: [
-                      {
-                          simpleResponse: {
-                              textToSpeech: param
-                          }
-                      }
-                ]
-
-
-            }
-
-
-
-        }
-      
-        return res.json({
-        speech: "",
-        displayText: "",
-
-        source: "webhook-echo-sample",
-
-        data: {
-            google: slack_message
-        }
-
-
-
     });
 
-    }
-   
-    
+    return res.json({
+                speech: "",
+                displayText: "",
 
-  
+                source: "webhook-echo-sample",
+
+                data: {
+                    google: slack_message
+                }
+
+
+
+            });
 
 });
 
@@ -210,4 +142,3 @@ return res.json({
 restService.listen(process.env.PORT || 8000, function () {
     console.log("Server up and listening");
 });
-
