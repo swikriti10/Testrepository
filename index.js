@@ -42,7 +42,7 @@ restService.post("/slack-test", function (req, res) {
 
 
 
-    if (actionName == "get_action" || val == "start" || val == "Start") {
+    if (val == "start" || val == "Start") {
 
         
         request({
@@ -83,7 +83,7 @@ restService.post("/slack-test", function (req, res) {
                 } else {
                     botResponse = "You do not seem to have any active Purchase Orders!";
                 }
-                slack_message = {
+             var  slack_message = {
 
                     expect_user_response: true,
                     rich_response: {
@@ -124,7 +124,19 @@ restService.post("/slack-test", function (req, res) {
 
                 };
 
+ return res.json({
+        speech: "",
+        displayText: "",
 
+        source: "webhook-echo-sample",
+
+        data: {
+            google: slack_message
+        }
+
+
+
+    });
 
                 //console.log(JSON.stringify(obj));
             }
@@ -155,7 +167,7 @@ restService.post("/slack-test", function (req, res) {
 
                 var botResponse = c.d.results[0].MatDesc;
 
-                slack_message = {
+               var slack_message = {
 
                     expect_user_response: true,
                     rich_response: {
@@ -169,36 +181,7 @@ restService.post("/slack-test", function (req, res) {
                     }
                 }
              
-
-
-                //console.log(JSON.stringify(obj));
-            }
-        });
-
-
-
-       
-    }
-
-    else {
-
-        slack_message = {
-
-            expect_user_response: true,
-            rich_response: {
-                items: [
-                      {
-                          simpleResponse: {
-                              textToSpeech: val
-                          }
-                      }
-                ]
-            }
-        }
-    }
-
-
-    return res.json({
+ return res.json({
         speech: "",
         displayText: "",
 
@@ -211,6 +194,51 @@ restService.post("/slack-test", function (req, res) {
 
 
     });
+
+                //console.log(JSON.stringify(obj));
+            }
+        });
+
+
+
+       
+    }
+
+    else {
+
+      var  slack_message = {
+
+            expect_user_response: true,
+            rich_response: {
+                items: [
+                      {
+                          simpleResponse: {
+                              textToSpeech: val
+                          }
+                      }
+                ]
+            }
+        }
+   return res.json({
+        speech: "",
+        displayText: "",
+
+        source: "webhook-echo-sample",
+
+        data: {
+            google: slack_message
+        }
+
+
+
+    });
+      
+      
+      }
+    
+
+
+   
 
 });
 
