@@ -87,8 +87,8 @@ restService.post("/slack-test", function (req, res) {
 
     var slack_message = {
 
-        expectUserResponse: true,
-        richResponse: {
+        expect_User_Response: true,
+        rich_Response: {
             items: [
                   {
                       simpleResponse: {
@@ -128,11 +128,12 @@ restService.post("/slack-test", function (req, res) {
 
 
  return res.json({
-        fulfillmentText: "",
-       
+       speech: "",
+        displayText: "",
+
         source: "webhook-echo-sample",
 
-        payload: {
+        data: {
             google: slack_message
         }
 
