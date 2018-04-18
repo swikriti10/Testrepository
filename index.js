@@ -89,7 +89,7 @@ if(actionName=="get_action" ||val=="start"||val=="Start"){
                     items: [
                           {
                               simpleResponse: {
-                                  textToSpeech: speech
+                                  textToSpeech: actionName
                               }
                           }
                     ],
@@ -156,7 +156,7 @@ slack_message = {
                     items: [
                           {
                               simpleResponse: {
-                                  textToSpeech: speech
+                                  textToSpeech: actionName
                               }
                           }
                     ]
