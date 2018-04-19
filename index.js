@@ -166,8 +166,8 @@ restService.post("/slack-test", function (req, res) {
                 //var a = JSON.stringify(a);
 
                 var botResponse = c.d.results[0].MatDesc;
-              var tmsg = "Order number '" + c.d.results[0].ToNum + "' has materil sample-'" + c.d.results[0].MatDesc + "'";
-
+             
+var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.d.results[0].MatDesc + "with " + c.d.results[0].Qty + " Quantity to pick from storage location " + c.d.results[0].StrLoc + ". Do you want to confirm the pick up for order number " + c.d.results[0].ToNum + ". ";
 
                var slack_message = {
 
@@ -179,6 +179,15 @@ restService.post("/slack-test", function (req, res) {
                                       textToSpeech: tmsg
                                   }
                               }
+                        ],
+                      suggestions: [
+                            {
+                                title: "Yes"
+                            },
+                            {
+                                title: "No"
+                            }
+                            
                         ]
                     }
                 }
