@@ -166,6 +166,8 @@ restService.post("/slack-test", function (req, res) {
                 //var a = JSON.stringify(a);
 
                 var botResponse = c.d.results[0].MatDesc;
+              var tmsg = "Order number '" + c.d.results[0].ToNum + "' has materil sample-'" + c.d.results[0].MatDesc + "'";
+
 
                var slack_message = {
 
@@ -174,7 +176,7 @@ restService.post("/slack-test", function (req, res) {
                         items: [
                               {
                                   simpleResponse: {
-                                      textToSpeech: botResponse
+                                      textToSpeech: tmsg
                                   }
                               }
                         ]
