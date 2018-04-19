@@ -182,10 +182,10 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
                         ],
                       suggestions: [
                             {
-                                title: "Yes"
+                                title: "List"
                             },
                             {
-                                title: "No"
+                                title: "Carousel"
                             }
                             
                         ]
