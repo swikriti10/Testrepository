@@ -181,14 +181,8 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
             {
               textToSpeech:tmsg
             }
-          },
-          {
-          basicCard: {
-        
-        formattedText:"hi"
-          }       
-      
-    }
+          }
+         
           
         ],
         suggestions:
