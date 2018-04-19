@@ -191,21 +191,9 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
                         ]
 
 
-                    },
-
-                    systemIntent: {
-                        intent: "actions.intent.OPTION",
-                        data: {
-                            "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
-                        listSelect: {
-                                title: "",
-                                items:obj1
-                            }
-                           
-                        }
                     }
 
-
+                    
 
                 };
 
