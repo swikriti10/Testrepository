@@ -179,7 +179,7 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
           {
             simpleResponse:
             {
-              textToSpeech:actionName
+              textToSpeech:tmsg
             }
           }
          
