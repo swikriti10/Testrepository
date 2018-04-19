@@ -169,7 +169,7 @@ restService.post("/slack-test", function (req, res) {
              
 var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.d.results[0].MatDesc + "with " + c.d.results[0].Qty + " Quantity to pick from storage location " + c.d.results[0].StrLoc + ". Do you want to confirm the pick up for order number " + c.d.results[0].ToNum + ". ";
 
-               var slack_message = {
+             var slack_message = {
 
                     expect_user_response: true,
                     rich_response: {
@@ -180,17 +180,31 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
                                   }
                               }
                         ],
-                      suggestions: [
+                        suggestions: [
                             {
-                                title: "List"
+                                title: "Yes"
                             },
                             {
-                                title: "Carousel"
+                                title: "No"
                             }
-                            
+
                         ]
+
+
+                    },
+
+                    systemIntent: {
+                        intent: "actions.intent.TEXT",
+                        data: {
+                            "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec"
+                           
+                        }
                     }
-                }
+
+
+
+                };
+
              
  return res.json({
         speech: "",
