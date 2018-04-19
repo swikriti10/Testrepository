@@ -199,7 +199,7 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
                             "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
                         listSelect: {
                                 title: "",
-                                
+                                items:[]
                             }
                            
                         }
