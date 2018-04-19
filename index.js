@@ -164,7 +164,7 @@ restService.post("/slack-test", function (req, res) {
                 //var a = res.json(body);
                 var len = c.d.results.length;
                 //var a = JSON.stringify(a);
-var obj1=[];
+
                 var botResponse = c.d.results[0].MatDesc;
              
 var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.d.results[0].MatDesc + "with " + c.d.results[0].Qty + " Quantity to pick from storage location " + c.d.results[0].StrLoc + ". Do you want to confirm the pick up for order number " + c.d.results[0].ToNum + ". ";
@@ -179,17 +179,17 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
           {
             simpleResponse:
             {
-              textToSpeech:"This is a simple response for with suggestion chips"
+              textToSpeech:tmsg
             }
           }
         ],
         suggestions:
         [
           {
-            title:"Option 1"
+            title:"Yes"
           },
           {
-            title:"Option 2"
+            title:"No"
           }
         ]
       
@@ -199,7 +199,7 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
 
              
  return res.json({
-        speech: "",
+        speech: "ee",
         displayText: "",
 
         source: "webhook-echo-sample",
