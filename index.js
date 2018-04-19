@@ -196,7 +196,11 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
                     systemIntent: {
                         intent: "actions.intent.TEXT",
                         data: {
-                            //"@type": "type.googleapis.com/google.actions.v2.OptionValueSpec"
+                            "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+                          linkOutSuggestion: {
+                        destinationName: "Suggestion Link",
+                        url: "https://assistant.google.com/"
+                    }
                            
                         }
                     }
