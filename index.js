@@ -199,7 +199,7 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
 
              
  return res.json({
-        speech: "ee",
+        speech: "",
         displayText: "",
 
         source: "webhook-echo-sample",
