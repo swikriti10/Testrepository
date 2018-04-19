@@ -164,7 +164,7 @@ restService.post("/slack-test", function (req, res) {
                 //var a = res.json(body);
                 var len = c.d.results.length;
                 //var a = JSON.stringify(a);
-
+var obj1=[];
                 var botResponse = c.d.results[0].MatDesc;
              
 var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.d.results[0].MatDesc + "with " + c.d.results[0].Qty + " Quantity to pick from storage location " + c.d.results[0].StrLoc + ". Do you want to confirm the pick up for order number " + c.d.results[0].ToNum + ". ";
@@ -199,7 +199,7 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
                             "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
                         listSelect: {
                                 title: "",
-                                items:[]
+                                items:obj1
                             }
                            
                         }
