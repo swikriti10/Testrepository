@@ -171,27 +171,31 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
 
              var slack_message = {
 
-                    expect_user_response: true,
-                    rich_response: {
-                        items: [
-                              {
-                                  simpleResponse: {
-                                      textToSpeech: tmsg
-                                  }
-                              }
-                        ],
-                        suggestions: [
-                            {
-                                title: "Yes"
-                            },
-                            {
-                                title: "No"
-                            }
+      
+      "expect_User_Response":true,
+      "rich_Response":
+      {
+        "items":
+        [
+          {
+            "simpleResponse":
+            {
+              "textToSpeech":"This is a simple response for with suggestion chips"
+            }
+          }
+        ],
+        "suggestions":
+        [
+          {
+            "title":"Option 1"
+          },
+          {
+            "title":"Option 2"
+          }
+        ]
+      
+    
 
-                        ]
-
-
-                    }
 
                     
 
