@@ -24,8 +24,8 @@ restService.use(
 );
 
 restService.use(bodyParser.json());
-restService.use(session({ secret: 'ssshhhhh' }));
-var sess;
+//restService.use(session({ secret: 'ssshhhhh' }));
+//var sess;
 
 
 restService.post("/slack-test", function (req, res) {
@@ -42,11 +42,11 @@ restService.post("/slack-test", function (req, res) {
         ? req.body.result.parameters.optionkey
         : "xx";
     const app = new App({ request: req, response: res });
-sess = req.session;
+//sess = req.session;
 
     if (val == "start" || val == "Start") {
 
-        sess.name ="Napo";
+     //   sess.name ="Napo";
         request({
             //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
             url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
@@ -147,7 +147,7 @@ sess = req.session;
 
     else if (actionName == "actions_intent_OPTION") {
         var param = app.getArgument('OPTION');
-      var name1 = sess.name;
+     // var name1 = sess.name;
         request({
             url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
           //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
@@ -182,7 +182,7 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
           {
             simpleResponse:
             {
-              textToSpeech:name1
+              textToSpeech:tmsg
             }
           }
          
