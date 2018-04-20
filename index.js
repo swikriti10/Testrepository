@@ -166,7 +166,7 @@ app.setContext( "c_option", 5, contextParameters );
         items: [
                       {
         simpleResponse: {
-            textToSpeech: z
+            textToSpeech: actionName
     }
     }
     ]
