@@ -132,15 +132,7 @@ restService.post("/slack-test", function (req, res) {
                 return res.json({
                     speech: "",
                     displayText: "",
-   contextOut: [ {
-    name: "c_option",
-    lifespan: "5",
-    parameters: {
-      optionkey: "Something foothy"
-     
-    }
-  }
-                        ],
+   
                     source: "webhook-echo-sample",
 
                     data: {
@@ -262,10 +254,10 @@ restService.post("/slack-test", function (req, res) {
 
                         source: "webhook-echo-sample",
                         contextOut: [ {
-    name: "c_option",
+    name: "temp",
     lifespan: "5",
     parameters: {
-      listkey: "Something foothy"
+      key: "Something foothy"
      
     }
   }
