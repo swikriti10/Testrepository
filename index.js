@@ -198,7 +198,7 @@ restService.post("/slack-test", function (req, res) {
             // var name1 = sess.name;
       
       else{
-               var z = app.getContextArgument(c_option, optionkey);
+               //var z = app.getContextArgument(c_option, optionkey);
 
      
             request({
@@ -235,7 +235,7 @@ restService.post("/slack-test", function (req, res) {
                               {
                                   simpleResponse:
                                   {
-                                      textToSpeech: z
+                                      textToSpeech:tmsg
                                   }
                               }
 
