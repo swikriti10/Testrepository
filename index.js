@@ -147,16 +147,42 @@ restService.post("/slack-test", function (req, res) {
 
     else if (actionName == "actions_intent_OPTION") {
         var param = app.getArgument('OPTION');
-        app.setContext({
-            name: 'c_pick',
-            lifespan: 1,
-            parameters: { ordernum: param }
+      var input = app.getRawInput();
+        if (input == "Yes") {
+        
+        
+         var slack_message = {
+
+        expect_user_response: true,
+        rich_response: {
+        items: [
+                      {
+        simpleResponse: {
+            textToSpeech: input
+    }
+    }
+    ]
+    }
+    }
+        return res.json({
+            speech: "",
+            displayText: "",
+
+            source: "webhook-echo-sample",
+
+            data: {
+                google: slack_message
+            }
+
+
+
         });
+    }
 
        
-
-
             // var name1 = sess.name;
+      
+      else{
             request({
                 url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
                 //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
@@ -230,43 +256,12 @@ restService.post("/slack-test", function (req, res) {
                 }
             });
 
-        
+      }
 
 
     }
 
-    else if (actionName == "action_pick") {
-        var input = app.getRawInput();
-        const tempContext = app.getContext('c_pick');
-        const originalTemp = tempContext.parameters.ordernum;
-         var slack_message = {
-
-        expect_user_response: true,
-        rich_response: {
-        items: [
-                      {
-        simpleResponse: {
-            textToSpeech: input
-    }
-    }
-    ]
-    }
-    }
-        return res.json({
-            speech: "",
-            displayText: "",
-
-            source: "webhook-echo-sample",
-
-            data: {
-                google: slack_message
-            }
-
-
-
-        });
-    }
-
+   
     else {
 
         var slack_message = {
