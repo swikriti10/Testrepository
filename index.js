@@ -148,8 +148,16 @@ restService.post("/slack-test", function (req, res) {
     else if (actionName == "actions_intent_OPTION") {
         var param = app.getArgument('OPTION');
       var input = app.getRawInput();
+      
+      var contextParameters = {
+  foo:param 
+  
+};
+app.setContext( "c_option", 5, contextParameters );
+      
+      
         if (input == "Yes") {
-        
+        var z = app.getContextArgument('c_option', 'foo');
         
          var slack_message = {
 
@@ -158,7 +166,7 @@ restService.post("/slack-test", function (req, res) {
         items: [
                       {
         simpleResponse: {
-            textToSpeech: input
+            textToSpeech: z
     }
     }
     ]
