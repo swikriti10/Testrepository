@@ -154,7 +154,7 @@ restService.post("/slack-test", function (req, res) {
       
         if (input == "Yes") {
         var z = app.getContextArgument('c_option', 'foo');
-        const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
+        //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
          var slack_message = {
 
         expect_user_response: true,
@@ -162,7 +162,7 @@ restService.post("/slack-test", function (req, res) {
         items: [
                       {
         simpleResponse: {
-            textToSpeech: number
+            textToSpeech: input
     }
     }
     ]
@@ -188,12 +188,7 @@ restService.post("/slack-test", function (req, res) {
       
       else{
         
-        const OUT_CONTEXT = 'c_option';
-const NUMBER_ARG = 'listkey';
-        const parameters = {};
-  parameters[NUMBER_ARG] = '42';
-  app.setContext(OUT_CONTEXT, 1, parameters);
-        
+     
             request({
                 url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
                 //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
@@ -254,7 +249,15 @@ const NUMBER_ARG = 'listkey';
                         displayText: "",
 
                         source: "webhook-echo-sample",
-
+                        contextOut: [ {
+    name: "c_option",
+    lifespan: "5",
+    parameters: {
+      listkey: "Something foothy"
+     
+    }
+  }
+                        ],
                         data: {
                             google: slack_message
                         }
