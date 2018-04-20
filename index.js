@@ -161,7 +161,7 @@ restService.post("/slack-test", function (req, res) {
         if (input == "Yes") {
         var z = app.getContextArgument('c_option', 'key');
            var tempContext = app.getContext('c_option');
-    var originalTemp = tempContext.parameters.listkey.original;
+    var originalTemp = tempContext.parameters.listkey;
         //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
          var slack_message = {
 
