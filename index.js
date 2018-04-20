@@ -147,6 +147,11 @@ restService.post("/slack-test", function (req, res) {
 
     else if (actionName == "actions_intent_OPTION") {
         var param = app.getArgument('OPTION');
+       app.setContext({
+            name: 'c_pick',
+            lifespan: 5,
+            parameters: { ordernum1: param}
+        });
      // var name1 = sess.name;
         request({
             url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
@@ -225,6 +230,41 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
 
        
     }
+  
+  
+  else if (actionName == "action_pick") {
+
+        const tempContext = agent.getContext('c_pick');
+        const originalTemp = tempContext.parameters.ordernum1;
+        var slack_message = {
+
+            expect_user_response: true,
+            rich_response: {
+                items: [
+                      {
+                          simpleResponse: {
+                              textToSpeech: originalTemp
+                          }
+                      }
+                ]
+            }
+        }
+        return res.json({
+            speech: "",
+            displayText: "",
+
+            source: "webhook-echo-sample",
+
+            data: {
+                google: slack_message
+            }
+
+
+
+        });
+
+    }
+
 
     else {
 
