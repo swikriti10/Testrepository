@@ -44,9 +44,9 @@ restService.post("/slack-test", function (req, res) {
   
       var  ordernum =
       req.body.result &&
-      req.body.result.contexts &&
-      req.body.result.contexts.name
-        ?req.body.result.contexts.name
+      req.body.contexts &&
+      req.body.contexts.name
+        ?req.body.contexts.name
         : "Noordernum";
   
     const app = new App({ request: req, response: res });
@@ -239,7 +239,7 @@ restService.post("/slack-test", function (req, res) {
                               {
                                   simpleResponse:
                                   {
-                                      textToSpeech: tmsg
+                                      textToSpeech: ordernum
                                   }
                               }
 
