@@ -45,6 +45,9 @@ restService.post("/slack-test", function (req, res) {
       
   
     const app = new App({ request: req, response: res });
+  
+ 
+  
     //sess = req.session;
 
     if (val == "start" || val == "Start") {
@@ -157,6 +160,8 @@ restService.post("/slack-test", function (req, res) {
       
         if (input == "Yes") {
         var z = app.getContextArgument('temp', 'key');
+           var tempContext = app.getContext('temp');
+    var originalTemp = tempContext.parameters.key;
         //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
          var slack_message = {
 
@@ -165,7 +170,7 @@ restService.post("/slack-test", function (req, res) {
         items: [
                       {
         simpleResponse: {
-            textToSpeech: z
+            textToSpeech: originalTemp
     }
     }
     ]
