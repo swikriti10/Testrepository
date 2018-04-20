@@ -148,16 +148,13 @@ restService.post("/slack-test", function (req, res) {
     else if (actionName == "actions_intent_OPTION") {
         var param = app.getArgument('OPTION');
       var input = app.getRawInput();
-        var contextParameters = {
-  foo:"hello" 
-  
-};
-app.setContext( "c_option", 5, contextParameters );
+     
     
       
       
         if (input == "Yes") {
         var z = app.getContextArgument('c_option', 'foo');
+          var context = app.getContext(CONTEXT_NUMBER);
         
          var slack_message = {
 
@@ -166,7 +163,7 @@ app.setContext( "c_option", 5, contextParameters );
         items: [
                       {
         simpleResponse: {
-            textToSpeech: param
+            textToSpeech: context
     }
     }
     ]
@@ -191,6 +188,10 @@ app.setContext( "c_option", 5, contextParameters );
             // var name1 = sess.name;
       
       else{
+        
+        const CONTEXT_NUMBER = 'number';
+        app.setContext(CONTEXT_NUMBER);
+        
             request({
                 url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
                 //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
