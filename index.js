@@ -156,7 +156,7 @@ restService.post("/slack-test", function (req, res) {
       
       
         if (input == "Yes") {
-        var z = app.getContextArgument('c_option', 'foo');
+        var z = app.getContextArgument('temp', 'key');
         //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
          var slack_message = {
 
@@ -165,7 +165,7 @@ restService.post("/slack-test", function (req, res) {
         items: [
                       {
         simpleResponse: {
-            textToSpeech: input
+            textToSpeech: z
     }
     }
     ]
