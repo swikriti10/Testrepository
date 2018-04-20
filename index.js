@@ -159,9 +159,9 @@ restService.post("/slack-test", function (req, res) {
       
       
         if (input == "Yes") {
-        var z = app.getContextArgument('c_again', 'key');
-           var tempContext = app.getContext('c_again');
-    var originalTemp = tempContext.parameters.key.original;
+        var z = app.getContextArgument('c_option', 'key');
+           var tempContext = app.getContext('c_option');
+    var originalTemp = tempContext.parameters.listkey.original;
         //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
          var slack_message = {
 
@@ -259,10 +259,10 @@ restService.post("/slack-test", function (req, res) {
 
                         source: "webhook-echo-sample",
                         contextOut: [ {
-    name: "c_again",
+    name: "c_option",
     lifespan: "5",
     parameters: {
-      key: "Something foothy"
+      listkey: "Something foothy"
      
     }
   }
