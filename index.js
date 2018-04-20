@@ -154,8 +154,7 @@ restService.post("/slack-test", function (req, res) {
       
         if (input == "Yes") {
         var z = app.getContextArgument('c_option', 'foo');
-          var context = app.getContext(CONTEXT_NUMBER);
-        
+        const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
          var slack_message = {
 
         expect_user_response: true,
@@ -163,7 +162,7 @@ restService.post("/slack-test", function (req, res) {
         items: [
                       {
         simpleResponse: {
-            textToSpeech: context
+            textToSpeech: number
     }
     }
     ]
@@ -189,8 +188,11 @@ restService.post("/slack-test", function (req, res) {
       
       else{
         
-        const CONTEXT_NUMBER = 'number';
-        app.setContext(CONTEXT_NUMBER);
+        const OUT_CONTEXT = 'c_option';
+const NUMBER_ARG = 'listkey';
+        const parameters = {};
+  parameters[NUMBER_ARG] = '42';
+  app.setContext(OUT_CONTEXT, 1, parameters);
         
             request({
                 url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
