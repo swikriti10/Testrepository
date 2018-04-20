@@ -42,11 +42,7 @@ restService.post("/slack-test", function (req, res) {
         ? req.body.result.parameters.optionkey
         : "xx";
   
-      var  ordernum =
-      req.body.contexts &&
-      req.body.contexts['name']
-        ?req.body.contexts['name]
-        : "Noordernum";
+      
   
     const app = new App({ request: req, response: res });
     //sess = req.session;
@@ -177,7 +173,7 @@ restService.post("/slack-test", function (req, res) {
         items: [
                       {
         simpleResponse: {
-            textToSpeech: ordernum
+            textToSpeech: input
     }
     }
     ]
@@ -202,7 +198,11 @@ restService.post("/slack-test", function (req, res) {
             // var name1 = sess.name;
       
       else{
-        
+        var  ordernum =
+      req.body.contexts &&
+      req.body.contexts[name]
+        ?req.body.contexts[name]
+        : "Noordernum";
      
             request({
                 url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
