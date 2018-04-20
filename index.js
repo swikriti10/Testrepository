@@ -42,11 +42,11 @@ restService.post("/slack-test", function (req, res) {
         ? req.body.result.parameters.optionkey
         : "xx";
     const app = new App({ request: req, response: res });
-//sess = req.session;
+    //sess = req.session;
 
     if (val == "start" || val == "Start") {
 
-     //   sess.name ="Napo";
+        //   sess.name ="Napo";
         request({
             //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
             url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
@@ -85,7 +85,7 @@ restService.post("/slack-test", function (req, res) {
                 } else {
                     botResponse = "You do not seem to have any active Purchase Orders!";
                 }
-             var  slack_message = {
+                var slack_message = {
 
                     expect_user_response: true,
                     rich_response: {
@@ -126,19 +126,19 @@ restService.post("/slack-test", function (req, res) {
 
                 };
 
- return res.json({
-        speech: "",
-        displayText: "",
+                return res.json({
+                    speech: "",
+                    displayText: "",
 
-        source: "webhook-echo-sample",
+                    source: "webhook-echo-sample",
 
-        data: {
-            google: slack_message
-        }
+                    data: {
+                        google: slack_message
+                    }
 
 
 
-    });
+                });
 
                 //console.log(JSON.stringify(obj));
             }
@@ -147,95 +147,134 @@ restService.post("/slack-test", function (req, res) {
 
     else if (actionName == "actions_intent_OPTION") {
         var param = app.getArgument('OPTION');
-       app.setContext({
-            name: 'c_pick',
+        var input = app.getRawInput();
+
+        app.setContext({
+            name: 'c_option',
             lifespan: 5,
             parameters: { ordernum1: param}
         });
-     // var name1 = sess.name;
-        request({
-            url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
-          //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
-            headers: {
-                "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                "Content-Type": "application/json",
-                "x-csrf-token": "Fetch"
+
+        if (input == "Yes") {
+            const tempContext = app.getContext('c_option');
+            const originalTemp = tempContext.parameters.ordernum1;
+            var slack_message = {
+
+                expect_user_response: true,
+                rich_response: {
+                    items: [
+                          {
+                              simpleResponse: {
+                                  textToSpeech: originalTemp
+                              }
+                          }
+                    ]
+                }
             }
+            return res.json({
+                speech: "",
+                displayText: "",
 
-        }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                csrfToken = response.headers['x-csrf-token'];
-                // console.log(csrfToken);
-                // var gwResponse = body.asString();
-                // var JSONObj = JSON.parse(body);
-                var c = JSON.parse(body)
-                //var a = res.json(body);
-                var len = c.d.results.length;
-                //var a = JSON.stringify(a);
+                source: "webhook-echo-sample",
 
-                var botResponse = c.d.results[0].MatDesc;
-             
-var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.d.results[0].MatDesc + "with " + c.d.results[0].Qty + " Quantity to pick from storage location " + c.d.results[0].StrLoc + ". Do you want to confirm the pick up for order number " + c.d.results[0].ToNum + ". ";
+                data: {
+                    google: slack_message
+                }
 
-             var slack_message = {
 
-            expect_user_response:true,
-      rich_response:
-      {
-        items:
-        [
-          {
-            simpleResponse:
-            {
-              textToSpeech:tmsg
-            }
-          }
-         
-          
-        ],
-        suggestions:
-        [
-          {
-            title:"Yes"
-          },
-          {
-            title:"No"
-          }
-        ]
-      
-      }            
 
-                };
+            });
 
-             
- return res.json({
-        speech: "",
-        displayText: "",
-
-        source: "webhook-echo-sample",
-
-        data: {
-            google: slack_message
         }
 
 
-
-    });
-
-                //console.log(JSON.stringify(obj));
-            }
-        });
+        else {
 
 
 
-       
+            // var name1 = sess.name;
+            request({
+                url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
+                //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
+                headers: {
+                    "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                    "Content-Type": "application/json",
+                    "x-csrf-token": "Fetch"
+                }
+
+            }, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    csrfToken = response.headers['x-csrf-token'];
+                    // console.log(csrfToken);
+                    // var gwResponse = body.asString();
+                    // var JSONObj = JSON.parse(body);
+                    var c = JSON.parse(body)
+                    //var a = res.json(body);
+                    var len = c.d.results.length;
+                    //var a = JSON.stringify(a);
+
+                    var botResponse = c.d.results[0].MatDesc;
+
+                    var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.d.results[0].MatDesc + "with " + c.d.results[0].Qty + " Quantity to pick from storage location " + c.d.results[0].StrLoc + ". Do you want to confirm the pick up for order number " + c.d.results[0].ToNum + ". ";
+
+                    var slack_message = {
+
+                        expect_user_response: true,
+                        rich_response:
+                        {
+                            items:
+                            [
+                              {
+                                  simpleResponse:
+                                  {
+                                      textToSpeech: tmsg
+                                  }
+                              }
+
+
+                            ],
+                            suggestions:
+                            [
+                              {
+                                  title: "Yes"
+                              },
+                              {
+                                  title: "No"
+                              }
+                            ]
+
+                        }
+
+                    };
+
+
+                    return res.json({
+                        speech: "",
+                        displayText: "",
+
+                        source: "webhook-echo-sample",
+
+                        data: {
+                            google: slack_message
+                        }
+
+
+
+                    });
+
+                    //console.log(JSON.stringify(obj));
+                }
+            });
+
+        }
+
+
     }
-  
-  
-  else if (actionName == "action_pick") {
 
-        const tempContext = agent.getContext('c_pick');
-        const originalTemp = tempContext.parameters.ordernum1;
+   
+
+    else {
+
         var slack_message = {
 
             expect_user_response: true,
@@ -243,7 +282,7 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
                 items: [
                       {
                           simpleResponse: {
-                              textToSpeech: originalTemp
+                              textToSpeech: val
                           }
                       }
                 ]
@@ -263,44 +302,12 @@ var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.
 
         });
 
+
     }
 
 
-    else {
-
-      var  slack_message = {
-
-            expect_user_response: true,
-            rich_response: {
-                items: [
-                      {
-                          simpleResponse: {
-                              textToSpeech: val
-                          }
-                      }
-                ]
-            }
-        }
-   return res.json({
-        speech: "",
-        displayText: "",
-
-        source: "webhook-echo-sample",
-
-        data: {
-            google: slack_message
-        }
 
 
-
-    });
-      
-      
-      }
-    
-
-
-   
 
 });
 
