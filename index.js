@@ -43,10 +43,9 @@ restService.post("/slack-test", function (req, res) {
         : "xx";
   
       var  ordernum =
-      req.body.result &&
       req.body.contexts &&
-      req.body.contexts[name]
-        ?req.body.contexts[name]
+      req.body.contexts[0].name
+        ?req.body.contexts[0].name
         : "Noordernum";
   
     const app = new App({ request: req, response: res });
