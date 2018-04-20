@@ -41,6 +41,14 @@ restService.post("/slack-test", function (req, res) {
       req.body.result.parameters.optionkey
         ? req.body.result.parameters.optionkey
         : "xx";
+  
+      var  ordernum =
+      req.body.result &&
+      req.body.result.contexts &&
+      req.body.result.contexts.name
+        ?req.body.result.contexts.name
+        : "Noordernum";
+  
     const app = new App({ request: req, response: res });
     //sess = req.session;
 
@@ -129,7 +137,15 @@ restService.post("/slack-test", function (req, res) {
                 return res.json({
                     speech: "",
                     displayText: "",
-
+   contextOut: [ {
+    name: "temp",
+    lifespan: "5",
+    parameters: {
+      optionkey: "Something foothy"
+     
+    }
+  }
+                        ],
                     source: "webhook-echo-sample",
 
                     data: {
@@ -162,7 +178,7 @@ restService.post("/slack-test", function (req, res) {
         items: [
                       {
         simpleResponse: {
-            textToSpeech: input
+            textToSpeech: ordernum
     }
     }
     ]
