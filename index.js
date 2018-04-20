@@ -147,49 +147,13 @@ restService.post("/slack-test", function (req, res) {
 
     else if (actionName == "actions_intent_OPTION") {
         var param = app.getArgument('OPTION');
-        var input = app.getRawInput();
-
         app.setContext({
-            name: 'c_option',
-            lifespan: 5,
-            parameters: { ordernum1: param}
+            name: 'c_pick',
+            lifespan: 1,
+            parameters: { ordernum: param }
         });
 
-        if (input == "Yes") {
-            const tempContext = app.getContext('c_option');
-            const originalTemp = tempContext.parameters.ordernum1;
-            var slack_message = {
-
-                expect_user_response: true,
-                rich_response: {
-                    items: [
-                          {
-                              simpleResponse: {
-                                  textToSpeech: originalTemp
-                              }
-                          }
-                    ]
-                }
-            }
-            return res.json({
-                speech: "",
-                displayText: "",
-
-                source: "webhook-echo-sample",
-
-                data: {
-                    google: slack_message
-                }
-
-
-
-            });
-
-        }
-
-
-        else {
-
+       
 
 
             // var name1 = sess.name;
@@ -266,12 +230,42 @@ restService.post("/slack-test", function (req, res) {
                 }
             });
 
-        }
+        
 
 
     }
 
-   
+    else if (actionName == "action_pick") {
+        var input = app.getRawInput();
+        const tempContext = app.getContext('c_pick');
+        const originalTemp = tempContext.parameters.ordernum;
+         var slack_message = {
+
+        expect_user_response: true,
+        rich_response: {
+        items: [
+                      {
+        simpleResponse: {
+            textToSpeech: input
+    }
+    }
+    ]
+    }
+    }
+        return res.json({
+            speech: "",
+            displayText: "",
+
+            source: "webhook-echo-sample",
+
+            data: {
+                google: slack_message
+            }
+
+
+
+        });
+    }
 
     else {
 
