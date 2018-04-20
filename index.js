@@ -2,9 +2,9 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-var session = require('express-session');
 var http = require('http');
 var request = require('request');
+var session = require('express-session');
 var csrfToken;
 const restService = express();
 
@@ -24,8 +24,9 @@ restService.use(
 );
 
 restService.use(bodyParser.json());
-restService.use(session({ secret: 'ssshhhhh' }));
-var sess;
+//restService.use(session({ secret: 'ssshhhhh' }));
+//var sess;
+
 
 restService.post("/slack-test", function (req, res) {
     var actionName =
@@ -40,13 +41,18 @@ restService.post("/slack-test", function (req, res) {
       req.body.result.parameters.optionkey
         ? req.body.result.parameters.optionkey
         : "xx";
+  
+      
+  
     const app = new App({ request: req, response: res });
-    sess = req.session;
-
+  
+ 
+  
+    //sess = req.session;
 
     if (val == "start" || val == "Start") {
 
-
+        //   sess.name ="Napo";
         request({
             //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
             url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
@@ -129,7 +135,7 @@ restService.post("/slack-test", function (req, res) {
                 return res.json({
                     speech: "",
                     displayText: "",
-
+   
                     source: "webhook-echo-sample",
 
                     data: {
@@ -147,85 +153,138 @@ restService.post("/slack-test", function (req, res) {
 
     else if (actionName == "actions_intent_OPTION") {
         var param = app.getArgument('OPTION');
-        sess.name =param;
-        request({
-            url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
-            //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
-            headers: {
-                "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                "Content-Type": "application/json",
-                "x-csrf-token": "Fetch"
+      var input = app.getRawInput();
+     
+    
+      
+      
+        if (input == "Yes") {
+        var z = app.getContextArgument('c_option', 'key');
+           var tempContext = app.getContext('c_option');
+    var originalTemp = tempContext.parameters.key;
+        //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
+         var slack_message = {
+
+        expect_user_response: true,
+        rich_response: {
+        items: [
+                      {
+        simpleResponse: {
+            textToSpeech: originalTemp+"Enterred input"
+    }
+    }
+    ]
+    }
+    }
+        return res.json({
+            speech: "",
+            displayText: "",
+
+            source: "webhook-echo-sample",
+
+            data: {
+                google: slack_message
             }
 
-        }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                csrfToken = response.headers['x-csrf-token'];
-                // console.log(csrfToken);
-                // var gwResponse = body.asString();
-                // var JSONObj = JSON.parse(body);
-                var c = JSON.parse(body)
-                //var a = res.json(body);
-                var len = c.d.results.length;
-                //var a = JSON.stringify(a);
-
-                var botResponse = c.d.results[0].MatDesc;
-
-                var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.d.results[0].MatDesc + "with " + c.d.results[0].Qty + " Quantity to pick from storage location " + c.d.results[0].StrLoc + ". Do you want to confirm the pick up for order number " + c.d.results[0].ToNum + ". ";
-
-                var slack_message = {
-
-                    expect_user_response: true,
-                    rich_response:
-                    {
-                        items:
-                        [
-                          {
-                              simpleResponse:
-                              {
-                                  textToSpeech: tmsg
-                              }
-                          }
 
 
-                        ],
-                        suggestions:
-                        [
-                          {
-                              title: "Yes"
-                          },
-                          {
-                              title: "No"
-                          }
-                        ]
-
-                    }
-
-                };
-
-
-                return res.json({
-                    speech: "",
-                    displayText: "",
-
-                    source: "webhook-echo-sample",
-
-                    data: {
-                        google: slack_message
-                    }
-
-
-
-                });
-
-                //console.log(JSON.stringify(obj));
-            }
         });
+    }
+
+       
+            // var name1 = sess.name;
+      
+      else{
+               //var z = app.getContextArgument(c_option, optionkey);
+
+     
+            request({
+                url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
+                //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
+                headers: {
+                    "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                    "Content-Type": "application/json",
+                    "x-csrf-token": "Fetch"
+                }
+
+            }, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    csrfToken = response.headers['x-csrf-token'];
+                    // console.log(csrfToken);
+                    // var gwResponse = body.asString();
+                    // var JSONObj = JSON.parse(body);
+                    var c = JSON.parse(body)
+                    //var a = res.json(body);
+                    var len = c.d.results.length;
+                    //var a = JSON.stringify(a);
+
+                    var botResponse = c.d.results[0].MatDesc;
+
+                    var tmsg = "Order number " + c.d.results[0].ToNum + " has material sample-" + c.d.results[0].MatDesc + "with " + c.d.results[0].Qty + " Quantity to pick from storage location " + c.d.results[0].StrLoc + ". Do you want to confirm the pick up for order number " + c.d.results[0].ToNum + ". ";
+
+                    var slack_message = {
+
+                        expect_user_response: true,
+                        rich_response:
+                        {
+                            items:
+                            [
+                              {
+                                  simpleResponse:
+                                  {
+                                      textToSpeech:tmsg
+                                  }
+                              }
 
 
+                            ],
+                            suggestions:
+                            [
+                              {
+                                  title: "Yes"
+                              },
+                              {
+                                  title: "No"
+                              }
+                            ]
+
+                        }
+
+                    };
+
+
+                    return res.json({
+                        speech: "",
+                        displayText: "",
+
+                        source: "webhook-echo-sample",
+                        contextOut: [ {
+    name: "c_option",
+    lifespan: "5",
+    parameters: {
+      key: param
+     
+    }
+  }
+                        ],
+                        data: {
+                            google: slack_message
+                        }
+
+
+
+                    });
+
+                    //console.log(JSON.stringify(obj));
+                }
+            });
+
+      }
 
 
     }
 
+   
     else {
 
         var slack_message = {
@@ -235,7 +294,7 @@ restService.post("/slack-test", function (req, res) {
                 items: [
                       {
                           simpleResponse: {
-                              textToSpeech: val
+                              textToSpeech: "bye"
                           }
                       }
                 ]
