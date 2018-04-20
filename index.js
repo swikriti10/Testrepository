@@ -170,7 +170,7 @@ restService.post("/slack-test", function (req, res) {
         items: [
                       {
         simpleResponse: {
-            textToSpeech: originalTemp
+            textToSpeech: originalTemp+"Enterred input"
     }
     }
     ]
