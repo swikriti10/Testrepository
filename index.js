@@ -150,7 +150,7 @@ restService.post("/slack-test", function (req, res) {
       var input = app.getRawInput();
       
       var contextParameters = {
-  foo:param 
+  foo:"hello" 
   
 };
 app.setContext( "c_option", 5, contextParameters );
