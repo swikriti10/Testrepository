@@ -198,11 +198,8 @@ restService.post("/slack-test", function (req, res) {
             // var name1 = sess.name;
       
       else{
-        var  ordernum =
-      req.body.contexts &&
-      req.body.contexts[name]
-        ?req.body.contexts[name]
-        : "Noordernum";
+               var z = app.getContextArgument('c_option', 'listkey');
+
      
             request({
                 url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
@@ -238,7 +235,7 @@ restService.post("/slack-test", function (req, res) {
                               {
                                   simpleResponse:
                                   {
-                                      textToSpeech: ordernum
+                                      textToSpeech: z
                                   }
                               }
 
