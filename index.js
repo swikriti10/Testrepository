@@ -262,7 +262,7 @@ restService.post("/slack-test", function (req, res) {
     name: "c_option",
     lifespan: "5",
     parameters: {
-      key: "Something foothy"
+      key: param
      
     }
   }
