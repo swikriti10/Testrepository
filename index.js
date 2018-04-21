@@ -145,7 +145,7 @@ restService.post("/slack-test", function (req, res) {
 
                     source: "webhook-echo-sample",
                        contextOut: [{
-                            name: "c_option",
+                            name: "temp",
                             lifespan: "5",
                             parameters: {
                                 listkey: val
