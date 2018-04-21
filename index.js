@@ -52,11 +52,7 @@ restService.post("/slack-test", function (req, res) {
 
     if (val == "start" || val == "Start") {
       
-      app.setContext({
-      name: "c_option",
-      lifespan: 5,
-      parameters:{listkey: val}
-    });
+      
 
         //   sess.name ="Napo";
         request({
