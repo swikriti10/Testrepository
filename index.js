@@ -150,15 +150,7 @@ restService.post("/slack-test", function (req, res) {
                     displayText: "",
 
                     source: "webhook-echo-sample",
-                       contextOut: [{
-                            name: "c_option",
-                            lifespan: "5",
-                            parameters: {
-                                listkey: val
-
-                            }
-                        }
-                        ],
+                       
                     data: {
                         google: slack_message
                     }
@@ -281,7 +273,7 @@ restService.post("/slack-test", function (req, res) {
                         source: "webhook-echo-sample",
                         contextOut: [{
                             name: "c_option",
-                            lifespan: "5",
+                            lifespan: "1",
                             parameters: {
                                 key: param
 
