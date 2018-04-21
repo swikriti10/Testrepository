@@ -148,7 +148,7 @@ restService.post("/slack-test", function (req, res) {
                             name: "c_option",
                             lifespan: "5",
                             parameters: {
-                                optionkey: val
+                                listkey: val
 
                             }
                         }
