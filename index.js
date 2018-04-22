@@ -171,7 +171,7 @@ var slack_message = {
                 items: [
                       {
                           simpleResponse: {
-                              textToSpeech: param
+                              textToSpeech: "oyee2"
                           }
                       }
                 ]
