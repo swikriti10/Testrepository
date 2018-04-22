@@ -162,9 +162,13 @@ restService.post("/slack-test", function (req, res) {
        // var param = app.getArgument('OPTION');
         var param = app.getArgument('OPTION') ? app.getArgument('OPTION') :"secondtime";
       var input = app.getRawInput();
-       // if (param == "secondtime") {
-          //  var param = app.getRawInput();
-       // }
+        if (param == "secondtime") {
+           var param = app.getRawInput();
+       }
+      else
+      {
+         var param = app.getArgument('OPTION');
+      }
        // var input = app.getRawInput();
 
 
