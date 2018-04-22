@@ -171,7 +171,7 @@ var slack_message = {
                 items: [
                       {
                           simpleResponse: {
-                              textToSpeech: input
+                              textToSpeech: input2
                           }
                       }
                 ]
