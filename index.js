@@ -192,7 +192,7 @@ var slack_message = {
         });
 
 
-    }
+    
 
     }
 
