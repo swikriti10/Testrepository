@@ -160,11 +160,11 @@ restService.post("/slack-test", function (req, res) {
 
     else if (actionName == "actions_intent_OPTION") {
        // var param = app.getArgument('OPTION');
-        var param = app.getArgument('OPTION') ? app.getArgument('OPTION') : "secondtime";
+        var param = app.getArgument('OPTION') ? app.getArgument('OPTION') :"secondtime";
       var input = app.getRawInput();
-        if (param == "secondtime") {
-            var param = app.getRawInput();
-        }
+       // if (param == "secondtime") {
+          //  var param = app.getRawInput();
+       // }
        // var input = app.getRawInput();
 
 
