@@ -95,7 +95,7 @@ var input2 = app.getRawInput();
                    // botResponse = "You do not seem to have any active Purchase Orders!";
                     botResponse = {
 
-                        'optionInfo': { 'key': "oyee" },
+                        'optionInfo': { 'key': "oyee11111" },
                         'title':"Lucky"
 
                     }
@@ -171,7 +171,7 @@ var slack_message = {
                 items: [
                       {
                           simpleResponse: {
-                              textToSpeech: "oooooe"
+                              textToSpeech: input
                           }
                       }
                 ]
