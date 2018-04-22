@@ -241,7 +241,7 @@ restService.post("/slack-test", function (req, res) {
                               {
                                   simpleResponse:
                                   {
-                                      textToSpeech: tmsg
+                                      textToSpeech: actionName
                                   }
                               }
 
