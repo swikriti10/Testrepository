@@ -162,7 +162,7 @@ var input2 = app.getRawInput();
     }
 
     else if (actionName == "actions_intent_OPTION") {
-        var param = app.getArgument('OPTION');
+        var param = app.getArgument('OPTION')?app.getArgument('OPTION'):"hitting second time";
         var input = app.getRawInput();
 var slack_message = {
 
