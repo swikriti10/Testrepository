@@ -46,8 +46,6 @@ restService.post("/slack-test", function (req, res) {
 
     const app = new App({ request: req, response: res });
 
-var input2 = app.getRawInput();
- var intent2 = app.getIntent();
 
     //sess = req.session;
 
@@ -162,8 +160,10 @@ var input2 = app.getRawInput();
     }
 
     else if (actionName == "actions_intent_OPTION") {
-        var param = app.getArgument('OPTION')?app.getArgument('OPTION'):"hitting second time";
-        var input = app.getRawInput();
+        var param = app.getArgument('OPTION')?app.getArgument('OPTION'):"secondtime";
+      if(param=="secondtime"){
+        var param = app.getRawInput();
+      }
 var slack_message = {
 
             expect_user_response: true,
