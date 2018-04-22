@@ -46,7 +46,7 @@ restService.post("/slack-test", function (req, res) {
 
     const app = new App({ request: req, response: res });
 
-
+var input2 = app.getRawInput();
 
     //sess = req.session;
 
@@ -241,7 +241,7 @@ restService.post("/slack-test", function (req, res) {
                               {
                                   simpleResponse:
                                   {
-                                      textToSpeech: actionName
+                                      textToSpeech: input2
                                   }
                               }
 
