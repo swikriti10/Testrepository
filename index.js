@@ -50,7 +50,7 @@ restService.post("/slack-test", function (req, res) {
 
     //sess = req.session;
 
-    if (val == "start" || val == "Start") {
+   // if (val == "start" || val == "Start") {
 
         //   sess.name ="Napo";
         request({
@@ -156,9 +156,9 @@ restService.post("/slack-test", function (req, res) {
                 //console.log(JSON.stringify(obj));
             }
         });
-    }
+  //  }
 
-    else if (actionName == "actions_intent_OPTION") {
+     if (actionName == "actions_intent_OPTION") {
        // var param = app.getArgument('OPTION');
         var param = app.getArgument('OPTION') ? app.getArgument('OPTION') :"secondtime";
       var input = app.getRawInput();
