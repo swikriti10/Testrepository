@@ -188,7 +188,7 @@ restService.post("/slack-test", function (req, res) {
             var csrfToken;
             request({
                 //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-                url: url + "/TOHeaderDtBotSet?$filter=ToNum%20eq%20%27" + d + "%27%20&sap-client=900&sap-language=EN&$format=json",
+                url: url + "/TOHeaderDtBotSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
 
                 //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                 headers: {
@@ -214,7 +214,7 @@ restService.post("/slack-test", function (req, res) {
                     //////////////////////////////////////////calling 2nd service////////////////////
                     request({
                         //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-                        url: url + "/TOItemDetailsSet?$filter=ToNum%20eq%20%27" + d + "%27%20&sap-client=900&sap-language=EN&$format=json",
+                        url: url + "/TOItemDetailsSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
 
                         //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                         headers: {
