@@ -187,41 +187,34 @@ restService.post("/slack-test", function (req, res) {
             //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
            
             var csrfToken;
-            request({
-                //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-                url: url + "TOHeaderDtBotSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
+           request({
+    //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
+    url: url + "TOHeaderDtBotSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
 
-                //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
-                headers: {
-                    "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                    "Content-Type": "application/json",
-                    "x-csrf-token": "Fetch"
-                }
+    //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
+    headers: {
+        "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+        "Content-Type": "application/json",
+        "x-csrf-token": "Fetch"
+    }
 
-            }, function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    csrfToken = response.headers['x-csrf-token'];
-                    // console.log(csrfToken);
-                    // var gwResponse = body.asString();
-                    // var JSONObj = JSON.parse(body);
+}, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        csrfToken = response.headers['x-csrf-token'];
+        // console.log(csrfToken);
+        // var gwResponse = body.asString();
+        // var JSONObj = JSON.parse(body);
                   
-                    c = JSON.parse(body)
-                    //var a = res.json(body);
-                   // var len = c.d.results.length;
-                   // var a = JSON.stringify(c);
-                   // botResponse = c;
+        c = JSON.parse(body)
+        //var a = res.json(body);
+        // var len = c.d.results.length;
+        // var a = JSON.stringify(c);
+        // botResponse = c;
 
-                    botResponse = c.d.results[0].MovType;                  
-        }
+        botResponse = c.d.results[0].MovType;                  
+    }
 
-                            });
-
-
-                            ///////////////////////////ens////////////////////////
-
-
-                     
-                );
+});
            
 
             var slack_message = {
