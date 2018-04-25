@@ -20,7 +20,7 @@ var slack_message;
 //var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV";
 var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV/";
 
-var d = '1140';
+//var d = '1140';
 var i = 0;
 var obj = [];
 restService.use(
@@ -188,7 +188,7 @@ restService.post("/slack-test", function (req, res) {
             var csrfToken;
             request({
                 //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-                url: url + "/TOHeaderDtBotSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
+                url: url + "TOHeaderDtBotSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
 
                 //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                 headers: {
@@ -214,7 +214,7 @@ restService.post("/slack-test", function (req, res) {
                     //////////////////////////////////////////calling 2nd service////////////////////
                     request({
                         //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-                        url: url + "/TOItemDetailsSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
+                        url: url + "TOItemDetailsSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
 
                         //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                         headers: {
@@ -287,7 +287,7 @@ restService.post("/slack-test", function (req, res) {
 
                                     // console.log(c.d.results[0].MovType);
 
-                                    var entity = {};
+                                   var entity = {};
                                                                        
                                     entity = {
 
