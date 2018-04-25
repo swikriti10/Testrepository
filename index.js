@@ -12,7 +12,7 @@ var c;
 var c1;
 var entity1;
 var obj = [];
-var botResponse;
+
 const restService = express();
 
 const App = require('actions-on-google').DialogflowApp;
@@ -185,7 +185,8 @@ restService.post("/slack-test", function (req, res) {
             var tempContext = app.getContext('c_option');
             var originalTemp = tempContext.parameters.key;
             //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
-           
+           var c;
+          var botResponse;
             var csrfToken;
            request({
     //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
@@ -205,7 +206,7 @@ restService.post("/slack-test", function (req, res) {
         // var gwResponse = body.asString();
         // var JSONObj = JSON.parse(body);
                   
-        c = JSON.parse(body)
+       c = JSON.parse(body)
         //var a = res.json(body);
         // var len = c.d.results.length;
         // var a = JSON.stringify(c);
