@@ -212,13 +212,8 @@ restService.post("/slack-test", function (req, res) {
         // var a = JSON.stringify(c);
         // botResponse = c;
 
-        botResponse = c.d.results[0].MovType;                  
-    }
-
-});
-           
-
-            var slack_message = {
+        botResponse = c.d.results[0].MovType;
+      var slack_message = {
 
                 expect_user_response: true,
                 rich_response: {
@@ -245,6 +240,18 @@ restService.post("/slack-test", function (req, res) {
 
 
             });
+      
+      
+      
+      
+      
+      
+    }
+
+});
+           
+
+            
         }
 
 
