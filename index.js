@@ -185,7 +185,7 @@ restService.post("/slack-test", function (req, res) {
             var tempContext = app.getContext('c_option');
             var originalTemp = tempContext.parameters.key;
             //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
-           var c;
+           var firstdetail;
           var botResponse;
             var csrfToken;
            request({
@@ -206,13 +206,13 @@ restService.post("/slack-test", function (req, res) {
         // var gwResponse = body.asString();
         // var JSONObj = JSON.parse(body);
                   
-       c = JSON.parse(body)
+       firstdetail = JSON.parse(body)
         //var a = res.json(body);
         // var len = c.d.results.length;
         // var a = JSON.stringify(c);
         // botResponse = c;
 
-        botResponse = c.d.results[0].MovType;
+        botResponse = firstdetail.d.results[0].MovType;
       var slack_message = {
 
                 expect_user_response: true,
