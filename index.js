@@ -189,7 +189,7 @@ restService.post("/slack-test", function (req, res) {
           var c;
           var c1;
           var entity1;
-          var obj[];
+          var obj=[];
           var res;
             var csrfToken;
             request({
