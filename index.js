@@ -12,6 +12,7 @@ var c;
 var c1;
 var entity1;
 var obj = [];
+var botResponse;
 const restService = express();
 
 const App = require('actions-on-google').DialogflowApp;
@@ -210,154 +211,8 @@ restService.post("/slack-test", function (req, res) {
                    // var a = JSON.stringify(c);
                    // botResponse = c;
 
-                  var  botResponse = c.d.results[0].MovType;
-
-                    //////////////////////////////////////////calling 2nd service////////////////////
-                    request({
-                        //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-                        url: url + "TOItemDetailsSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
-
-                        //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
-                        headers: {
-                            "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                            "Content-Type": "application/json",
-                            "x-csrf-token": "Fetch"
-                        }
-
-                    }, function (error, response, body) {
-                        if (!error && response.statusCode == 200) {
-                            csrfToken = response.headers['x-csrf-token'];
-                            // console.log(csrfToken);
-                            // var gwResponse = body.asString();
-                            // var JSONObj = JSON.parse(body);
-                            c1 = JSON.parse(body)
-                            //var a = res.json(body);
-                        //    var len1 = c1.d.results.length;
-                        //    var a1 = JSON.stringify(c1);
-
-                            entity1 = {
-                                'ToNum': c1.d.results[0].ToNum,
-                                'ToPos': c1.d.results[0].ToPos,
-                                'Material': c1.d.results[0].Material,
-                                'MatDesc': c1.d.results[0].MatDesc,
-                                'Plant': c1.d.results[0].Plant,
-                                'Batch': c1.d.results[0].Batch,
-                                'Qty': c1.d.results[0].Qty,
-                                'QtyUnit': c1.d.results[0].QtyUnit,
-                                'SourceType': c1.d.results[0].SourceType,
-                                'SourceBin': c1.d.results[0].SourceBin,
-                                'StrLoc': c1.d.results[0].StrLoc
-                            }
-
-
-                            obj.push(entity1);
-
-                            // var botResponse1;
-                           // botResponse1 = c1.d.results[0].StrLoc;
-                            //   botResponse1 =c1;
-
-                            //console.log(botResponse1);
-
-                            ///////////////////csrf///////////////////
-
-
-                            request({
-                                //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-                                url: url + "",
-
-                                //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
-                                headers: {
-                                    "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                                    "Content-Type": "application/json",
-                                    "x-csrf-token": "Fetch"
-                                }
-
-                            }, function (error, response, body) {
-                                if (!error && response.statusCode == 200) {
-                                    csrfToken = response.headers['x-csrf-token'];
-                                    // console.log(csrfToken);
-                                    // var gwResponse = body.asString();
-                                    // var JSONObj = JSON.parse(body);
-
-                                    // var botResponse1;
-                                    // botResponse1 = c1.d.results[0].StrLoc;
-                                    //   botResponse1 =c1;
-
-                                    //console.log(c1.d.results[0].ToNum);
-
-
-                                    // console.log(c.d.results[0].MovType);
-
-                                   var entity = {};
-                                                                       
-                                    entity = {
-
-
-                                        'd': {
-
-                                            'ToNum': c.d.results[0].ToNum,
-                                            'CreateOn': c.d.results[0].CreateOn,
-                                            'MovType': c.d.results[0].MovType,
-                                            'DestType': c.d.results[0].DestType,
-                                            'DestBin': c.d.results[0].DestBin,
-                                            'ToItemRel': obj
-
-                                            //'ToItemRel': [
-                                            //  {
-                                            //      'ToNum': c1.d.results[0].ToNum,
-                                            //      'ToPos': c1.d.results[0].ToPos,
-                                            //      'Material': c1.d.results[0].Material,
-                                            //      'MatDesc': c1.d.results[0].MatDesc,
-                                            //      'Plant': c1.d.results[0].Plant,
-                                            //      'Batch': c1.d.results[0].Batch,
-                                            //      'Qty': c1.d.results[0].Qty,
-                                            //      'QtyUnit': c1.d.results[0].QtyUnit,
-                                            //      'SourceType': c1.d.results[0].SourceType,
-                                            //      'SourceBin': c1.d.results[0].SourceBin
-                                            //  }
-                                            //]
-                                        }
-
-
-                                    };
-                                //    var r = JSON.stringify(entity)
-
-                                    // entity2.push(entity);
-
-                                    /////////////////////////post code////////////////////////////////////////////////////
-
-
-                                    // Do post
-
-                                    request({
-                                        url: url + "ToHeaderInfoSet",
-                                        method: 'POST',
-                                        headers: {
-                                            "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                                            "Content-Type": "application/json",
-                                            "X-Requested-With": "XMLHttpRequest",
-                                            "x-csrf-token": "" // set CSRF Token for post or update
-                                        },
-
-                                        json: entity
-                                    }, function (error, response, body) {
-
-                                        // handle response
-                                        if (!error && response.statusCode == 201) {
-
-                                            res = "Picked Successfully!!!";
-                                        }
-                                        else {
-                                            res = "Picked Failed!!!!!";
-                                        }
-
-
-                                    });
-
-
-                                    /////////////////////////////////end post///////////////////////
-
-                                }
+                    botResponse = c.d.results[0].MovType;                  
+        }
 
                             });
 
@@ -365,18 +220,9 @@ restService.post("/slack-test", function (req, res) {
                             ///////////////////////////ens////////////////////////
 
 
-                        }
-
-                    });
-
-                  
-                    ////////////////////////end of 2nd service///////////////////////////////////////////////
-
-                }
-            });
-
-
-
+                     
+                );
+           
 
             var slack_message = {
 
@@ -386,7 +232,7 @@ restService.post("/slack-test", function (req, res) {
                                   {
                                       simpleResponse: {
                                           //textToSpeech: originalTemp + "Enterred input"
-                                          textToSpeech: originalTemp+res
+                                          textToSpeech:botResponse
                                       }
                                   }
                     ]
