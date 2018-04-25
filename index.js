@@ -184,7 +184,7 @@ restService.post("/slack-test", function (req, res) {
             var tempContext = app.getContext('c_option');
             var originalTemp = tempContext.parameters.key;
             //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
-
+var botResponse;
             var csrfToken;
             request({
                 //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
@@ -209,7 +209,7 @@ restService.post("/slack-test", function (req, res) {
                    // var a = JSON.stringify(c);
                    // botResponse = c;
 
-                    // botResponse = c.d.results[0].MovType;
+                     botResponse = c.d.results[0].MovType;
 
                     //////////////////////////////////////////calling 2nd service////////////////////
                     request({
@@ -385,7 +385,7 @@ restService.post("/slack-test", function (req, res) {
                                   {
                                       simpleResponse: {
                                           //textToSpeech: originalTemp + "Enterred input"
-                                          textToSpeech: res
+                                          textToSpeech: botResponse
                                       }
                                   }
                     ]
