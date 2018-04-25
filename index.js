@@ -9,9 +9,7 @@ var csrfToken;
 var res;
 var entity;
 var c;
-var c1;
-var entity1;
-var obj = [];
+
 
 const restService = express();
 
@@ -200,6 +198,8 @@ restService.post("/slack-test", function (req, res) {
     }
 
 }, function (error, response, body) {
+             
+   ////////////////////first if start/////////////////////////          
     if (!error && response.statusCode == 200) {
         csrfToken = response.headers['x-csrf-token'];
         // console.log(csrfToken);
@@ -211,8 +211,57 @@ restService.post("/slack-test", function (req, res) {
         // var len = c.d.results.length;
         // var a = JSON.stringify(c);
         // botResponse = c;
+      botResponse = firstdetail.d.results[0].MovType;
+      var c1;
+      var entity1;
+      var obj = [];
+      
+      
+      ///////////////////////////////////2nd req starts in 1st if/////////////////////////////////////////////////
+      request({
+                        //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
+                        url: url + "TOItemDetailsSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
 
-        botResponse = firstdetail.d.results[0].MovType;
+                        //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
+                        headers: {
+                            "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                            "Content-Type": "application/json",
+                            "x-csrf-token": "Fetch"
+                        }
+
+                    }, function (error, response, body) {
+                        if (!error && response.statusCode == 200) {
+                            csrfToken = response.headers['x-csrf-token'];
+                            // console.log(csrfToken);
+                            // var gwResponse = body.asString();
+                            // var JSONObj = JSON.parse(body);
+                            c1 = JSON.parse(body)
+                            //var a = res.json(body);
+                        //    var len1 = c1.d.results.length;
+                        //    var a1 = JSON.stringify(c1);
+
+                            entity1 = {
+                                'ToNum': c1.d.results[0].ToNum,
+                                'ToPos': c1.d.results[0].ToPos,
+                                'Material': c1.d.results[0].Material,
+                                'MatDesc': c1.d.results[0].MatDesc,
+                                'Plant': c1.d.results[0].Plant,
+                                'Batch': c1.d.results[0].Batch,
+                                'Qty': c1.d.results[0].Qty,
+                                'QtyUnit': c1.d.results[0].QtyUnit,
+                                'SourceType': c1.d.results[0].SourceType,
+                                'SourceBin': c1.d.results[0].SourceBin,
+                                'StrLoc': c1.d.results[0].StrLoc
+                            }
+
+
+                            obj.push(entity1);
+                        }
+      });
+      
+      
+      
+      /////////////////////////////////////////2ns req ends in 1st if//////////////////////////////////////////
       var slack_message = {
 
                 expect_user_response: true,
@@ -221,7 +270,7 @@ restService.post("/slack-test", function (req, res) {
                                   {
                                       simpleResponse: {
                                           //textToSpeech: originalTemp + "Enterred input"
-                                          textToSpeech:botResponse
+                                          textToSpeech:botResponse+c1.d.results[0].ToNum,
                                       }
                                   }
                     ]
@@ -247,7 +296,7 @@ restService.post("/slack-test", function (req, res) {
       
       
     }
-
+////////////////////////////////1st if end/////////////////////////////////////////////////////////////////////////
 });
            
 
