@@ -184,7 +184,13 @@ restService.post("/slack-test", function (req, res) {
             var tempContext = app.getContext('c_option');
             var originalTemp = tempContext.parameters.key;
             //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
-var botResponse;
+           var botResponse;
+          var a;
+          var c;
+          var c1;
+          var entity1;
+          var obj[];
+          var res;
             var csrfToken;
             request({
                 //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
@@ -203,6 +209,7 @@ var botResponse;
                     // console.log(csrfToken);
                     // var gwResponse = body.asString();
                     // var JSONObj = JSON.parse(body);
+                  
                     c = JSON.parse(body)
                     //var a = res.json(body);
                    // var len = c.d.results.length;
