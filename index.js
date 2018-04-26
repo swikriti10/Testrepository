@@ -185,9 +185,7 @@ restService.post("/slack-test", function (req, res) {
             //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
            var firstdetail;
           var botResponse;
-           var c1;
-      var entity1;
-      var obj = [];
+         
             var csrfToken;
            request({
     //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
@@ -232,6 +230,9 @@ restService.post("/slack-test", function (req, res) {
 
                     }, function (error, response, body) {
                         if (!error && response.statusCode == 200) {
+                            var c1;
+      var entity1;
+      var obj = [];
                             csrfToken = response.headers['x-csrf-token'];
                             // console.log(csrfToken);
                             // var gwResponse = body.asString();
@@ -258,12 +259,8 @@ restService.post("/slack-test", function (req, res) {
 
                             obj.push(entity1);
                         }
-      });
-      
-      
-      
-      /////////////////////////////////////////2ns req ends in 1st if//////////////////////////////////////////
-      var slack_message = {
+        
+         var slack_message = {
 
                 expect_user_response: true,
                 rich_response: {
@@ -292,6 +289,12 @@ restService.post("/slack-test", function (req, res) {
             });
       
       
+      });
+      
+      
+      
+      /////////////////////////////////////////2ns req ends in 1st if//////////////////////////////////////////
+     
       
       
       
