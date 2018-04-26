@@ -233,7 +233,7 @@ restService.post("/slack-test", function (req, res) {
                             var c1;
                           var entity1;
                           var obj = [];
-                          
+                         
                             csrfToken = response.headers['x-csrf-token'];
                             // console.log(csrfToken);
                             // var gwResponse = body.asString();
@@ -305,14 +305,14 @@ restService.post("/slack-test", function (req, res) {
 
                                         json: entity
                                     }, function (error, response, body) {
-                                           var res;
+                                            var result;
                                         // handle response
-                                        if (!error && response.statusCode == 201) {
+                                        if (!error) {
 
-                                            res = "Picked Successfully!!!";
+                                            result = "Picked Successfully!!!";
                                         }
                                         else {
-                                            res = "Picked Failed!!!!!";
+                                            result = "Picked Failed!!!!!";
                                         }
    var slack_message = {
 
@@ -322,7 +322,7 @@ restService.post("/slack-test", function (req, res) {
                                   {
                                       simpleResponse: {
                                           //textToSpeech: originalTemp + "Enterred input"
-                                          textToSpeech:res
+                                          textToSpeech: result
                                       }
                                   }
                     ]
