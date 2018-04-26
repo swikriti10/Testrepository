@@ -231,8 +231,9 @@ restService.post("/slack-test", function (req, res) {
                     }, function (error, response, body) {
                         if (!error && response.statusCode == 200) {
                             var c1;
-      var entity1;
-      var obj = [];
+                          var entity1;
+                          var obj = [];
+                          
                             csrfToken = response.headers['x-csrf-token'];
                             // console.log(csrfToken);
                             // var gwResponse = body.asString();
@@ -258,9 +259,62 @@ restService.post("/slack-test", function (req, res) {
 
 
                             obj.push(entity1);
-                        }
-        
-         var slack_message = {
+                            var entity = {};
+                          
+                                                                       
+                                    entity = {
+
+
+                                        'd': {
+
+                                            'ToNum': firstdetail.d.results[0].ToNum,
+                                            'CreateOn': firstdetail.d.results[0].CreateOn,
+                                            'MovType': firstdetail.d.results[0].MovType,
+                                            'DestType': firstdetail.d.results[0].DestType,
+                                            'DestBin': firstdetail.d.results[0].DestBin,
+                                            'ToItemRel': obj
+
+                                            //'ToItemRel': [
+                                            //  {
+                                            //      'ToNum': c1.d.results[0].ToNum,
+                                            //      'ToPos': c1.d.results[0].ToPos,
+                                            //      'Material': c1.d.results[0].Material,
+                                            //      'MatDesc': c1.d.results[0].MatDesc,
+                                            //      'Plant': c1.d.results[0].Plant,
+                                            //      'Batch': c1.d.results[0].Batch,
+                                            //      'Qty': c1.d.results[0].Qty,
+                                            //      'QtyUnit': c1.d.results[0].QtyUnit,
+                                            //      'SourceType': c1.d.results[0].SourceType,
+                                            //      'SourceBin': c1.d.results[0].SourceBin
+                                            //  }
+                                            //]
+                                        }
+                          
+                          
+                           /////////////////////////////////////////////Post operation in 2nd if/////////////////////////
+                          
+                           request({
+                                        url: url + "ToHeaderInfoSet",
+                                        method: 'POST',
+                                        headers: {
+                                            "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                                            "Content-Type": "application/json",
+                                            "X-Requested-With": "XMLHttpRequest",
+                                            "x-csrf-token": "" // set CSRF Token for post or update
+                                        },
+
+                                        json: entity
+                                    }, function (error, response, body) {
+                                           var res;
+                                        // handle response
+                                        if (!error && response.statusCode == 201) {
+
+                                            res = "Picked Successfully!!!";
+                                        }
+                                        else {
+                                            res = "Picked Failed!!!!!";
+                                        }
+   var slack_message = {
 
                 expect_user_response: true,
                 rich_response: {
@@ -268,7 +322,7 @@ restService.post("/slack-test", function (req, res) {
                                   {
                                       simpleResponse: {
                                           //textToSpeech: originalTemp + "Enterred input"
-                                          textToSpeech:botResponse,
+                                          textToSpeech:res
                                       }
                                   }
                     ]
@@ -288,16 +342,26 @@ restService.post("/slack-test", function (req, res) {
 
             });
       
+
+                                    });
+                          
+                          
+                          
+                          ///////////////////////////////////postoperation ends in second if////////////////////////////
+   
+                          
+                        }
+        
+              
+        
+      
       
       });
       
       
       
       /////////////////////////////////////////2ns req ends in 1st if//////////////////////////////////////////
-     
-      
-      
-      
+  
       
     }
 ////////////////////////////////1st if end/////////////////////////////////////////////////////////////////////////
