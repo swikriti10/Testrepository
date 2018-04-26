@@ -268,7 +268,7 @@ restService.post("/slack-test", function (req, res) {
                                   {
                                       simpleResponse: {
                                           //textToSpeech: originalTemp + "Enterred input"
-                                          textToSpeech:c1.d.results[0].ToNum,
+                                          textToSpeech:botResponse,
                                       }
                                   }
                     ]
