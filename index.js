@@ -183,41 +183,41 @@ restService.post("/slack-test", function (req, res) {
             var tempContext = app.getContext('c_option');
             var originalTemp = tempContext.parameters.key;
             //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
-           var firstdetail;
-          var botResponse;
-         
+            var firstdetail;
+            var botResponse;
+
             var csrfToken;
-           request({
-    //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-    url: url + "TOHeaderDtBotSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
+            request({
+                //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
+                url: url + "TOHeaderDtBotSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
 
-    //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
-    headers: {
-        "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-        "Content-Type": "application/json",
-        "x-csrf-token": "Fetch"
-    }
+                //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
+                headers: {
+                    "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                    "Content-Type": "application/json",
+                    "x-csrf-token": "Fetch"
+                }
 
-}, function (error, response, body) {
-             
-   ////////////////////first if start/////////////////////////          
-    if (!error && response.statusCode == 200) {
-        csrfToken = response.headers['x-csrf-token'];
-        // console.log(csrfToken);
-        // var gwResponse = body.asString();
-        // var JSONObj = JSON.parse(body);
-                  
-       firstdetail = JSON.parse(body)
-        //var a = res.json(body);
-        // var len = c.d.results.length;
-        // var a = JSON.stringify(c);
-        // botResponse = c;
-      botResponse = firstdetail.d.results[0].MovType;
-     
-      
-      
-      ///////////////////////////////////2nd req starts in 1st if/////////////////////////////////////////////////
-      request({
+            }, function (error, response, body) {
+
+                ////////////////////first if start/////////////////////////          
+                if (!error && response.statusCode == 200) {
+                    csrfToken = response.headers['x-csrf-token'];
+                    // console.log(csrfToken);
+                    // var gwResponse = body.asString();
+                    // var JSONObj = JSON.parse(body);
+
+                    firstdetail = JSON.parse(body)
+                    //var a = res.json(body);
+                    // var len = c.d.results.length;
+                    // var a = JSON.stringify(c);
+                    // botResponse = c;
+                    botResponse = firstdetail.d.results[0].MovType;
+
+
+
+                    ///////////////////////////////////2nd req starts in 1st if/////////////////////////////////////////////////
+                    request({
                         //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
                         url: url + "TOItemDetailsSet?$filter=ToNum%20eq%20%27" + originalTemp + "%27%20&sap-client=900&sap-language=EN&$format=json",
 
@@ -231,17 +231,17 @@ restService.post("/slack-test", function (req, res) {
                     }, function (error, response, body) {
                         if (!error && response.statusCode == 200) {
                             var c1;
-                          var entity1;
-                          var obj = [];
-                         
+                            var entity1;
+                            var obj = [];
+
                             csrfToken = response.headers['x-csrf-token'];
                             // console.log(csrfToken);
                             // var gwResponse = body.asString();
                             // var JSONObj = JSON.parse(body);
                             c1 = JSON.parse(body)
                             //var a = res.json(body);
-                        //    var len1 = c1.d.results.length;
-                        //    var a1 = JSON.stringify(c1);
+                            //    var len1 = c1.d.results.length;
+                            //    var a1 = JSON.stringify(c1);
 
                             entity1 = {
                                 'ToNum': c1.d.results[0].ToNum,
@@ -260,115 +260,214 @@ restService.post("/slack-test", function (req, res) {
 
                             obj.push(entity1);
                             var entity = {};
-                          
-                                                                       
-                                    entity = {
 
 
-                                        'd': {
+                            entity = {
 
-                                            'ToNum': firstdetail.d.results[0].ToNum,
-                                            'CreateOn': firstdetail.d.results[0].CreateOn,
-                                            'MovType': firstdetail.d.results[0].MovType,
-                                            'DestType': firstdetail.d.results[0].DestType,
-                                            'DestBin': firstdetail.d.results[0].DestBin,
-                                            'ToItemRel': obj
 
-                                            //'ToItemRel': [
-                                            //  {
-                                            //      'ToNum': c1.d.results[0].ToNum,
-                                            //      'ToPos': c1.d.results[0].ToPos,
-                                            //      'Material': c1.d.results[0].Material,
-                                            //      'MatDesc': c1.d.results[0].MatDesc,
-                                            //      'Plant': c1.d.results[0].Plant,
-                                            //      'Batch': c1.d.results[0].Batch,
-                                            //      'Qty': c1.d.results[0].Qty,
-                                            //      'QtyUnit': c1.d.results[0].QtyUnit,
-                                            //      'SourceType': c1.d.results[0].SourceType,
-                                            //      'SourceBin': c1.d.results[0].SourceBin
-                                            //  }
-                                            //]
-                                        }
-                          
+                                'd': {
+
+                                    'ToNum': firstdetail.d.results[0].ToNum,
+                                    'CreateOn': firstdetail.d.results[0].CreateOn,
+                                    'MovType': firstdetail.d.results[0].MovType,
+                                    'DestType': firstdetail.d.results[0].DestType,
+                                    'DestBin': firstdetail.d.results[0].DestBin,
+                                    'ToItemRel': obj
+
+                                    //'ToItemRel': [
+                                    //  {
+                                    //      'ToNum': c1.d.results[0].ToNum,
+                                    //      'ToPos': c1.d.results[0].ToPos,
+                                    //      'Material': c1.d.results[0].Material,
+                                    //      'MatDesc': c1.d.results[0].MatDesc,
+                                    //      'Plant': c1.d.results[0].Plant,
+                                    //      'Batch': c1.d.results[0].Batch,
+                                    //      'Qty': c1.d.results[0].Qty,
+                                    //      'QtyUnit': c1.d.results[0].QtyUnit,
+                                    //      'SourceType': c1.d.results[0].SourceType,
+                                    //      'SourceBin': c1.d.results[0].SourceBin
+                                    //  }
+                                    //]
+                                }
+
+                            }
+                            /////////////////////////////////////////////Post operation in 2nd if/////////////////////////
+
+                            request({
+                                url: url + "ToHeaderInfoSet",
+                                method: 'POST',
+                                headers: {
+                                    "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                                    "Content-Type": "application/json",
+                                    "X-Requested-With": "XMLHttpRequest",
+                                    "x-csrf-token": "" // set CSRF Token for post or update
+                                },
+
+                                json: entity
+                            }, function (error, response, body) {
+                                var result;
+                                // handle response
+                                if (!error) {
+
+                                    result = "Picked Successfully!!!";
+                                }
+                                else {
+                                    result = "Picked Failed!!!!!";
+                                }
+                                var slack_message = {
+
+                                    expect_user_response: true,
+                                    rich_response: {
+                                        items: [
+                                                      {
+                                                          simpleResponse: {
+                                                              //textToSpeech: originalTemp + "Enterred input"
+                                                              textToSpeech: result
+                                                          }
+                                                      }
+                                        ]
                                     }
-                           /////////////////////////////////////////////Post operation in 2nd if/////////////////////////
-                          
-                           request({
-                                        url: url + "ToHeaderInfoSet",
-                                        method: 'POST',
-                                        headers: {
-                                            "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                                            "Content-Type": "application/json",
-                                            "X-Requested-With": "XMLHttpRequest",
-                                            "x-csrf-token": "" // set CSRF Token for post or update
-                                        },
+                                }
+                                return res.json({
+                                    speech: "",
+                                    displayText: "",
 
-                                        json: entity
-                                    }, function (error, response, body) {
-                                            var result;
-                                        // handle response
-                                        if (!error) {
+                                    source: "webhook-echo-sample",
 
-                                            result = "Picked Successfully!!!";
-                                        }
-                                        else {
-                                            result = "Picked Failed!!!!!";
-                                        }
-   var slack_message = {
-
-                expect_user_response: true,
-                rich_response: {
-                    items: [
-                                  {
-                                      simpleResponse: {
-                                          //textToSpeech: originalTemp + "Enterred input"
-                                          textToSpeech: result
-                                      }
-                                  }
-                    ]
-                }
-            }
-            return res.json({
-                speech: "",
-                displayText: "",
-
-                source: "webhook-echo-sample",
-
-                data: {
-                    google: slack_message
-                }
+                                    data: {
+                                        google: slack_message
+                                    }
 
 
 
-            });
-      
+                                });
 
-                                    });
-                          
-                          
-                          
-                          ///////////////////////////////////postoperation ends in second if////////////////////////////
-   
-                          
+
+                            });
+
+
+
+                            ///////////////////////////////////postoperation ends in second if////////////////////////////
+
+
                         }
-        
-              
-        
-      
-      
-      });
-      
-      
-      
-      /////////////////////////////////////////2ns req ends in 1st if//////////////////////////////////////////
-  
-      
-    }
-////////////////////////////////1st if end/////////////////////////////////////////////////////////////////////////
-});
-           
 
-            
+
+
+
+
+                    });
+
+
+
+                    /////////////////////////////////////////2ns req ends in 1st if//////////////////////////////////////////
+
+
+                }
+                ////////////////////////////////1st if end/////////////////////////////////////////////////////////////////////////
+            });
+
+
+
+        }
+
+
+      else if(input=="No")
+      {
+          request({
+              //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
+              url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
+              headers: {
+                  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                  "Content-Type": "application/json",
+                  "x-csrf-token": "Fetch"
+              }
+
+          }, function (error, response, body) {
+              if (!error && response.statusCode == 200) {
+                  csrfToken = response.headers['x-csrf-token'];
+                  // console.log(csrfToken);
+                  // var gwResponse = body.asString();
+                  // var JSONObj = JSON.parse(body);
+                  var c = JSON.parse(body)
+                  //var a = res.json(body);
+                  var len = c.d.results.length;
+                  //var a = JSON.stringify(a);
+
+                  var botResponse;
+
+                  if (c.d.results.length > 0) {
+                      // botResponse = "Your latest Purchase orders are: ";
+
+                      for (; i < c.d.results.length; i++) {
+                          // botResponse += " ";
+                          botResponse = {
+
+                              'optionInfo': { 'key': c.d.results[i].ToNum },
+                              'title': c.d.results[i].ToNum
+
+                          }
+                          obj.push(botResponse);
+                      }
+                  } else {
+                      // botResponse = "You do not seem to have any active Purchase Orders!";
+                      botResponse = {
+
+                          'optionInfo': { 'key': "oyee" },
+                          'title': "Lucky"
+
+                      }
+                      obj.push(botResponse);
+                  }
+                  var slack_message = {
+
+                      expect_user_response: true,
+                      rich_response: {
+                          items: [
+                                {
+                                    simpleResponse: {
+                                        textToSpeech: val
+                                    }
+                                }
+                          ]
+                         
+
+
+                      },
+
+                      systemIntent: {
+                          intent: "actions.intent.OPTION",
+                          data: {
+                              "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+                              listSelect: {
+                                  title: "Select the order",
+                                  items: obj
+                              }
+                          }
+                      }
+
+
+
+                  };
+
+                  return res.json({
+                      speech: "",
+                      displayText: "",
+
+                      source: "webhook-echo-sample",
+
+                      data: {
+                          google: slack_message
+                      }
+
+
+
+                  });
+
+                  //console.log(JSON.stringify(obj));
+              }
+          });
+
         }
 
 
