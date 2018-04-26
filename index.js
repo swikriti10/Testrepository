@@ -6,8 +6,8 @@ var http = require('http');
 var request = require('request');
 var session = require('express-session');
 var csrfToken;
-var res;
-var entity;
+
+
 var c;
 
 
