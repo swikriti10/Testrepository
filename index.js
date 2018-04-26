@@ -185,6 +185,9 @@ restService.post("/slack-test", function (req, res) {
             //const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
            var firstdetail;
           var botResponse;
+           var c1;
+      var entity1;
+      var obj = [];
             var csrfToken;
            request({
     //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
@@ -212,9 +215,7 @@ restService.post("/slack-test", function (req, res) {
         // var a = JSON.stringify(c);
         // botResponse = c;
       botResponse = firstdetail.d.results[0].MovType;
-      var c1;
-      var entity1;
-      var obj = [];
+     
       
       
       ///////////////////////////////////2nd req starts in 1st if/////////////////////////////////////////////////
