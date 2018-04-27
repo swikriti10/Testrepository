@@ -307,7 +307,7 @@ restService.post("/slack-test", function (req, res) {
                                 }
                                 var slack_message = {
 
-                                    expect_user_response: false,
+                                    expect_user_response: true,
                                     rich_response: {
                                         items: [
                                                       {
