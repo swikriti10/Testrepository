@@ -110,7 +110,7 @@ restService.post("/slack-test", function (req, res) {
                         items: [
                               {
                                   simpleResponse: {
-                                      textToSpeech: len
+                                      textToSpeech: len+val
                                  //   textToSpeech:"You have below list of orders to pick today:"
                                   }
                               }
