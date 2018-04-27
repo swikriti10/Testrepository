@@ -304,7 +304,8 @@ restService.post("/slack-test", function (req, res) {
                                     result = "Picked Successfully!!!";
                                 }
                                 else {
-                                    result = "Picked Failed!!!!!";
+                                    //result = "Picked Failed!!!!!";
+                                  result=response.statusCode;
                                 }
                                 var slack_message = {
 
