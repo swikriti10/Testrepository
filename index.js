@@ -289,7 +289,8 @@ restService.post("/slack-test", function (req, res) {
                                 url: url1 + "ToHeaderInfoSet",
                                 method: 'POST',
                                 headers: {
-                                    "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                                  //  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                                  "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                                     "Content-Type": "application/json",
                                     "X-Requested-With": "XMLHttpRequest",
                                     "x-csrf-token": "" // set CSRF Token for post or update
