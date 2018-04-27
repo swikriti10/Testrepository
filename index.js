@@ -80,7 +80,8 @@ restService.post("/slack-test", function (req, res) {
                 //var a = JSON.stringify(a);
 
                 var botResponse={};
-                //obj=[];
+                obj=[];
+              i=0;
                 if (c.d.results.length > 0) {
                     // botResponse = "Your latest Purchase orders are: ";
 
