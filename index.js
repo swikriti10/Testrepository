@@ -63,7 +63,8 @@ restService.post("/slack-test", function (req, res) {
             //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
             url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
             headers: {
-                "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+               // "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+              "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                 "Content-Type": "application/json",
                 "x-csrf-token": "Fetch"
             }
@@ -112,8 +113,8 @@ restService.post("/slack-test", function (req, res) {
                         items: [
                               {
                                   simpleResponse: {
-                                      textToSpeech: len+val
-                                 //   textToSpeech:"You have below list of orders to pick today:"
+                                     // textToSpeech: len+val
+                                   textToSpeech:"You have below list of orders to pick today:"
                                   }
                               }
                         ]
@@ -186,7 +187,8 @@ restService.post("/slack-test", function (req, res) {
 
                 //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                 headers: {
-                    "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                   // "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                  "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                     "Content-Type": "application/json",
                     "x-csrf-token": "Fetch"
                 }
@@ -216,7 +218,8 @@ restService.post("/slack-test", function (req, res) {
 
                         //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                         headers: {
-                            "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                            //"Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                          "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                             "Content-Type": "application/json",
                             "x-csrf-token": "Fetch"
                         }
@@ -373,7 +376,8 @@ restService.post("/slack-test", function (req, res) {
               //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
               url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
               headers: {
-                  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                //  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                   "Content-Type": "application/json",
                   "x-csrf-token": "Fetch"
               }
@@ -422,7 +426,8 @@ restService.post("/slack-test", function (req, res) {
                                 {
                                     simpleResponse: {
                                         //textToSpeech: val
-                                      textToSpeech:"Order List"
+                                     // textToSpeech:"Order List"
+                                       textToSpeech:"You have below list of orders to pick today:"
                                     }
                                 }
                           ]
@@ -477,7 +482,8 @@ restService.post("/slack-test", function (req, res) {
                 url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
                 //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                 headers: {
-                    "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                  //  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                  "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                     "Content-Type": "application/json",
                     "x-csrf-token": "Fetch"
                 }
