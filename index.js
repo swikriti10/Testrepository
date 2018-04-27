@@ -18,6 +18,7 @@ var slack_message;
 
 //var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV";
 var url = "http://208.85.249.174:8000/sap/opu/odata/CRVWM/WMS_SRV/";
+var url1 = "http://208.85.249.174:8000/sap/opu/odata/sap/ZWMS_BOT_SRV/";
 
 //var d = '1140';
 var i = 0;
@@ -285,7 +286,7 @@ restService.post("/slack-test", function (req, res) {
                             /////////////////////////////////////////////Post operation in 2nd if/////////////////////////
 
                             request({
-                                url: url + "ToHeaderInfoSet",
+                                url: url1 + "ToHeaderInfoSet",
                                 method: 'POST',
                                 headers: {
                                     "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
