@@ -63,8 +63,8 @@ restService.post("/slack-test", function (req, res) {
             //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
             url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
             headers: {
-               // "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-              "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
+                // "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                 "Content-Type": "application/json",
                 "x-csrf-token": "Fetch"
             }
@@ -80,9 +80,9 @@ restService.post("/slack-test", function (req, res) {
                 var len = c.d.results.length;
                 //var a = JSON.stringify(a);
 
-                var botResponse={};
-               var obj=[];
-             var i=0;
+                var botResponse = {};
+                var obj = [];
+                var i = 0;
                 if (c.d.results.length > 0) {
                     // botResponse = "Your latest Purchase orders are: ";
 
@@ -96,47 +96,68 @@ restService.post("/slack-test", function (req, res) {
                         }
                         obj.push(botResponse);
                     }
-                } else {
-                    // botResponse = "You do not seem to have any active Purchase Orders!";
-                    botResponse = {
+                    var slack_message = {
 
-                        'optionInfo': { 'key': "oyee" },
-                        'title': "Lucky"
-
-                    }
-                    obj.push(botResponse);
-                }
-                var slack_message = {
-
-                    expect_user_response: true,
-                    rich_response: {
-                        items: [
-                              {
-                                  simpleResponse: {
-                                     // textToSpeech: len+val
-                                   textToSpeech:"You have below list of orders to pick today:"
+                        expect_user_response: true,
+                        rich_response: {
+                            items: [
+                                  {
+                                      simpleResponse: {
+                                          // textToSpeech: len+val
+                                          textToSpeech: "You have below list of orders to pick today:"
+                                      }
                                   }
-                              }
-                        ]
-                       
+                            ]
 
 
-                    },
 
-                    systemIntent: {
-                        intent: "actions.intent.OPTION",
-                        data: {
-                            "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
-                            listSelect: {
-                                title: "Select the order",
-                                items: obj
+                        },
+
+                        systemIntent: {
+                            intent: "actions.intent.OPTION",
+                            data: {
+                                "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+                                listSelect: {
+                                    title: "Select the order",
+                                    items: obj
+                                }
                             }
                         }
-                    }
 
 
 
-                };
+                    };
+
+                }
+
+
+
+
+
+                else {
+
+
+                    var slack_message = {
+
+                        expect_user_response: true,
+                        rich_response: {
+                            items: [
+                                  {
+                                      simpleResponse: {
+                                          // textToSpeech: len+val
+                                          textToSpeech: "You have below list of orders to pick today:"
+                                      }
+                                  }
+                            ]
+
+
+
+                        }
+
+
+
+                    };
+                }
 
                 return res.json({
                     speech: "",
@@ -187,8 +208,8 @@ restService.post("/slack-test", function (req, res) {
 
                 //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                 headers: {
-                   // "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                  "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
+                    // "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                    "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                     "Content-Type": "application/json",
                     "x-csrf-token": "Fetch"
                 }
@@ -219,7 +240,7 @@ restService.post("/slack-test", function (req, res) {
                         //url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                         headers: {
                             //"Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                          "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
+                            "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                             "Content-Type": "application/json",
                             "x-csrf-token": "Fetch"
                         }
@@ -293,8 +314,8 @@ restService.post("/slack-test", function (req, res) {
                                 url: url1 + "ToHeaderInfoSet",
                                 method: 'POST',
                                 headers: {
-                                  //  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                                  "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
+                                    //  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                                    "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                                     "Content-Type": "application/json",
                                     "X-Requested-With": "XMLHttpRequest",
                                     "x-csrf-token": "" // set CSRF Token for post or update
@@ -310,7 +331,7 @@ restService.post("/slack-test", function (req, res) {
                                 }
                                 else {
                                     //result = "Picked Failed!!!!!";
-                                  result=response.statusCode;
+                                    result = response.statusCode;
                                 }
                                 var slack_message = {
 
@@ -370,104 +391,103 @@ restService.post("/slack-test", function (req, res) {
         }
 
 
-      else if(input=="No")
-      {
-          request({
-              //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
-              url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
-              headers: {
-                //  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
-                  "Content-Type": "application/json",
-                  "x-csrf-token": "Fetch"
-              }
+        else if (input == "No") {
+            request({
+                //url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + d + "')&$format=json",
+                url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
+                headers: {
+                    //  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                    "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
+                    "Content-Type": "application/json",
+                    "x-csrf-token": "Fetch"
+                }
 
-          }, function (error, response, body) {
-              if (!error && response.statusCode == 200) {
-                  csrfToken = response.headers['x-csrf-token'];
-                  // console.log(csrfToken);
-                  // var gwResponse = body.asString();
-                  // var JSONObj = JSON.parse(body);
-                  var c = JSON.parse(body)
-                  //var a = res.json(body);
-                  var len = c.d.results.length;
-                  //var a = JSON.stringify(a);
+            }, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    csrfToken = response.headers['x-csrf-token'];
+                    // console.log(csrfToken);
+                    // var gwResponse = body.asString();
+                    // var JSONObj = JSON.parse(body);
+                    var c = JSON.parse(body)
+                    //var a = res.json(body);
+                    var len = c.d.results.length;
+                    //var a = JSON.stringify(a);
 
-                  var botResponse;
+                    var botResponse;
 
-                  if (c.d.results.length > 0) {
-                      // botResponse = "Your latest Purchase orders are: ";
+                    if (c.d.results.length > 0) {
+                        // botResponse = "Your latest Purchase orders are: ";
 
-                      for (; i < c.d.results.length; i++) {
-                          // botResponse += " ";
-                          botResponse = {
+                        for (; i < c.d.results.length; i++) {
+                            // botResponse += " ";
+                            botResponse = {
 
-                              'optionInfo': { 'key': c.d.results[i].ToNum },
-                              'title': c.d.results[i].ToNum
+                                'optionInfo': { 'key': c.d.results[i].ToNum },
+                                'title': c.d.results[i].ToNum
 
-                          }
-                          obj.push(botResponse);
-                      }
-                  } else {
-                      // botResponse = "You do not seem to have any active Purchase Orders!";
-                      botResponse = {
+                            }
+                            obj.push(botResponse);
+                        }
+                    } else {
+                        // botResponse = "You do not seem to have any active Purchase Orders!";
+                        botResponse = {
 
-                          'optionInfo': { 'key': "oyee" },
-                          'title': "Lucky"
+                            'optionInfo': { 'key': "oyee" },
+                            'title': "Lucky"
 
-                      }
-                      obj.push(botResponse);
-                  }
-                  var slack_message = {
+                        }
+                        obj.push(botResponse);
+                    }
+                    var slack_message = {
 
-                      expect_user_response: true,
-                      rich_response: {
-                          items: [
-                                {
-                                    simpleResponse: {
-                                        //textToSpeech: val
-                                     // textToSpeech:"Order List"
-                                       textToSpeech:"You have below list of orders to pick today:"
-                                    }
+                        expect_user_response: true,
+                        rich_response: {
+                            items: [
+                                  {
+                                      simpleResponse: {
+                                          //textToSpeech: val
+                                          // textToSpeech:"Order List"
+                                          textToSpeech: "You have below list of orders to pick today:"
+                                      }
+                                  }
+                            ]
+
+
+
+                        },
+
+                        systemIntent: {
+                            intent: "actions.intent.OPTION",
+                            data: {
+                                "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+                                listSelect: {
+                                    title: "Select the order",
+                                    items: obj
                                 }
-                          ]
-                         
-
-
-                      },
-
-                      systemIntent: {
-                          intent: "actions.intent.OPTION",
-                          data: {
-                              "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
-                              listSelect: {
-                                  title: "Select the order",
-                                  items: obj
-                              }
-                          }
-                      }
+                            }
+                        }
 
 
 
-                  };
+                    };
 
-                  return res.json({
-                      speech: "",
-                      displayText: "",
+                    return res.json({
+                        speech: "",
+                        displayText: "",
 
-                      source: "webhook-echo-sample",
+                        source: "webhook-echo-sample",
 
-                      data: {
-                          google: slack_message
-                      }
+                        data: {
+                            google: slack_message
+                        }
 
 
 
-                  });
+                    });
 
-                  //console.log(JSON.stringify(obj));
-              }
-          });
+                    //console.log(JSON.stringify(obj));
+                }
+            });
 
         }
 
@@ -482,8 +502,8 @@ restService.post("/slack-test", function (req, res) {
                 url: url + "/TOItemDetailsSet?$filter=ToNum eq('" + param + "')&$format=json",
                 //  url: url + "ListOpenTOSet?$filter=UserId eq 'SAPUSER' and TorderFrom eq '' and TorderTo eq '' and DelvFrom eq '' and DelvTo eq'' and SoFrom eq '' and SoTo eq '' and Material eq '' &sap-client=900&sap-language=EN&$format=json",
                 headers: {
-                  //  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
-                  "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
+                    //  "Authorization": "Basic <<base64 encoded sapuser:crave123>>",
+                    "Authorization": "Basic c2FwdXNlcjpjcmF2ZTEyMw==",
                     "Content-Type": "application/json",
                     "x-csrf-token": "Fetch"
                 }
